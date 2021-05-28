@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
@@ -47,23 +50,23 @@ namespace Server.Controllers
       }
     }
 
-     [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<Vault>> Create([FromBody] Vault v)
-        {
-            try
-            {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                v.creatorId = userInfo.Id;
-                Vault newVault = _vs.Create(v);
-                newVault.Creator = userInfo;
-                return Ok(newVault);
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<Vault>> Create([FromBody] Vault v)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        v.CreatorId = userInfo.Id;
+        Vault newVault = _vs.Create(v);
+        newVault.Creator = userInfo;
+        return Ok(newVault);
 
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

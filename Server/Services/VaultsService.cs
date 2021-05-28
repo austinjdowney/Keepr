@@ -29,5 +29,10 @@ namespace Server.Services
       }
       return vault;
     }
+
+    internal Vault Create(Vault v)
+        {
+            return _vr.Create(v);
+        }
   }
 }

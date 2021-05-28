@@ -46,5 +46,24 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
+
+     [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<Vault>> Create([FromBody] Vault v)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                v.creatorId = userInfo.Id;
+                Vault newVault = _vs.Create(v);
+                newVault.Creator = userInfo;
+                return Ok(newVault);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
   }
 }

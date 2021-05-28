@@ -29,6 +29,11 @@ namespace Server.Services
       return profile;
     }
 
+    internal Profile GetProfileById(string id)
+    {
+      return _repo.GetById(id);
+    }
+
     internal Account Edit(Account editData, string userEmail)
     {
       Account original = GetProfileByEmail(userEmail);

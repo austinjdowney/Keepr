@@ -1,14 +1,23 @@
 using System;
 using System.Collections.Generic;
 using Server.Models;
+using Server.Repositories;
 
 namespace Server.Services
 {
   public class VaultsService
   {
-    internal List<Vault> GetVaults()
+
+    private readonly VaultsRepository _vr;
+
+    public VaultsService(VaultsRepository vr)
     {
-      throw new NotImplementedException();
+      _vr = vr;
+    }
+
+    public List<Vault> GetVaults()
+    {
+      return _vr.GetAll();
     }
   }
 }

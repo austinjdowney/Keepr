@@ -8,7 +8,7 @@ namespace Server.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultsController
+  public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vs;
 

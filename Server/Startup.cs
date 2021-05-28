@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-// using Server.Repositories;
-// using Server.Services;
+using Server.Repositories;
+using Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,12 +42,12 @@ namespace Server
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
       // REPOS
-      //   services.AddScoped<AccountsRepository>();
-      //   services.AddTransient<RestaurantsRepository>();
+      services.AddScoped<AccountRepository>();
+      services.AddTransient<VaultsRepository>();
       //   services.AddTransient<ReviewsRepository>();
       // BUSINESS LOGIC
-      //   services.AddScoped<AccountService>();
-      //   services.AddTransient<RestaurantsService>();
+      services.AddScoped<AccountService>();
+      services.AddTransient<VaultsService>();
       //   services.AddTransient<ReviewsService>();
 
     }

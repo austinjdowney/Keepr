@@ -19,5 +19,15 @@ namespace Server.Services
     {
       return _vr.GetAll();
     }
+
+    internal Vault GetById(int id)
+    {
+      Vault vault = _vr.GetById(id);
+      if (vault == null)
+      {
+        throw new Exception("invalid id");
+      }
+      return vault;
+    }
   }
 }

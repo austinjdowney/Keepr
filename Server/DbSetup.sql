@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS vaults(
   description VARCHAR(255) comment 'Description of Vault',
   img VARCHAR(255) comment 'Vault Picture',
   isPrivate BOOLEAN comment 'Vault private or public',
-  createdAt DATETIME COMMENT 'Vault Created Time',
-  updatedAt DATETIME COMMENT 'Vault Updated time',
+  createdAt DATETIME COMMENT CURRENT_TIMESTAMP 'Vault Created Time',
+  updatedAt DATETIME COMMENT DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 'Vault Updated time',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
 CREATE TABLE IF NOT EXISTS keeps(

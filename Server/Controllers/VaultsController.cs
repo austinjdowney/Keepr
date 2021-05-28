@@ -30,5 +30,21 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpGet("{id}")]
+
+    public ActionResult<Vault> Get(int id)
+    {
+      try
+      {
+        Vault vault = _vs.GetById(id);
+        return Ok(vault);
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

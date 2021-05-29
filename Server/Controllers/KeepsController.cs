@@ -99,7 +99,7 @@ namespace Server.Controllers
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _ks.Delete(id, userInfo.Id);
-        return Ok("Successfully Deleted");
+        return Ok("Successfully Deleted Keep");
 
       }
       catch (Exception e)

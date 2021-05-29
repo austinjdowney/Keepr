@@ -82,7 +82,7 @@ namespace Server.Controllers
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _vs.Delete(id, userInfo.Id);
-        return Ok("Successfully Deleted");
+        return Ok("Successfully Deleted Vault");
 
       }
       catch (Exception e)

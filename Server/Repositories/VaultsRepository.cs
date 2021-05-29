@@ -31,7 +31,6 @@ namespace Server.Repositories
       }, new { id }).FirstOrDefault();
     }
 
-    //REVIEW.. id or profileId?
     internal List<Vault> GetVaultsByProfileId(string profileId)
     {
       string sql = @"

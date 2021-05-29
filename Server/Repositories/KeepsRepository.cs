@@ -76,12 +76,24 @@ namespace Server.Repositories
 
     internal Keep Update(Keep k)
     {
-      throw new NotImplementedException();
+      string sql = @"
+            UPDATE keeps 
+            SET 
+                name = @Name,
+                descriptions = @Description,
+                img = @Img,
+                views = @Views, shares = @Shares, keeps = @Keeps,
+                creatorId= @CreatorId
+            WHERE id = @Id;
+            ";
+      _db.Execute(sql, k);
+      return k;
     }
 
     internal void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
+      _db.Execute(sql, new { id });
     }
   }
 }

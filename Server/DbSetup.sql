@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS keeps(
   updatedAt DATETIME COMMENT DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 'Vault Updated time',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
-CREATE TABLE IF NOT EXISTS vaultkeep(
+CREATE TABLE IF NOT EXISTS vaultkeeps(
   id INT NOT NULL comment 'id for the keeps of a vault',
   creatorId VARCHAR (255) NOT NULL comment 'FK: vaultkeep Creator',
   vaultId INT NOT NULL comment 'FK ID of vault for user',

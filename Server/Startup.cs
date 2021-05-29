@@ -45,10 +45,12 @@ namespace Server
       services.AddScoped<AccountRepository>();
       services.AddTransient<VaultsRepository>();
       services.AddTransient<KeepsRepository>();
+      services.AddTransient<VaultKeepsRepository>();
       // BUSINESS LOGIC
       services.AddScoped<AccountService>();
       services.AddTransient<VaultsService>();
       services.AddTransient<KeepsService>();
+      services.AddTransient<VaultKeepsService>();
 
     }
 

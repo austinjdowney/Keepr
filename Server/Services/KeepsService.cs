@@ -54,7 +54,7 @@ namespace Server.Services
       Keep keep = GetById(id);
       if (keep.CreatorId != userId)
       {
-        throw new Exception("YOU CANT DELETE THIS.. NOT YOURS");
+        throw new Exception("YOU CANT DELETE THIS KEEP.. NOT YOURS");
       }
       _kr.Delete(id);
     }

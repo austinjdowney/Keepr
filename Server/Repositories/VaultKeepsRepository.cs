@@ -45,5 +45,19 @@ namespace Server.Repositories
       string sql = "DELETE FROM vaultkeeps WHERE id = @id LIMIT 1;";
       _db.Execute(sql, new { id });
     }
+
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+    {
+      string sql = @"
+      SELECT k.*,
+      vk.id as VKeepId,
+      a.*
+      FROM vaultkeeps vk
+      JOIN keeps k on k.id = vk.keepId
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE vaultId = @Vaultid;";
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { vaultId }, splitOn: "id").ToList();
+    }
+
   }
 }

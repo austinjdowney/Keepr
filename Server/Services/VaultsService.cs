@@ -32,12 +32,27 @@ namespace Server.Services
 
     internal Vault Update(Vault v, string id)
     {
-      throw new NotImplementedException();
+      Vault vault = _vr.GetById(v.Id);
+      if (vault == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+      if (vault.CreatorId != id)
+      {
+        throw new Exception("NOT YOUR VAULT");
+      }
+      return _vr.Update(v);
     }
 
-    internal void Delete(int id1, string id2)
+    internal void Delete(int id, string userId)
     {
-      throw new NotImplementedException();
+      Vault vault = GetById(id);
+      if (vault.CreatorId != userId)
+      {
+        throw new Exception("YOU CANT DELETE THIS VAULT.. NOT YOURS");
+      }
+      _vr.Delete(id);
     }
+
   }
 }

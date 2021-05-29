@@ -28,6 +28,10 @@ namespace Server.Services
       }
       return vaultkeep;
     }
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+    {
+      return _vkr.GetKeepsByVaultId(vaultId);
+    }
 
     internal VaultKeep Create(VaultKeep vk)
     {
@@ -41,9 +45,10 @@ namespace Server.Services
       VaultKeep vaultkeep = GetById(id);
       if (vaultkeep.CreatorId != userId)
       {
-        throw new Exception("YOU CANT DELETE THIS.. NOT YOURS");
+        throw new Exception("YOU CANT DELETE THIS KEEP.. NOT YOURS");
       }
       _vkr.Delete(id);
     }
+
   }
 }

@@ -44,11 +44,11 @@ namespace Server
       // REPOS
       services.AddScoped<AccountRepository>();
       services.AddTransient<VaultsRepository>();
-      //   services.AddTransient<ReviewsRepository>();
+      services.AddTransient<KeepsRepository>();
       // BUSINESS LOGIC
       services.AddScoped<AccountService>();
       services.AddTransient<VaultsService>();
-      //   services.AddTransient<ReviewsService>();
+      services.AddTransient<KeepsService>();
 
     }
 

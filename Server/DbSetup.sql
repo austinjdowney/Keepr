@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS keeps(
   views INT comment 'Number of views of keep',
   shares INT comment 'Number of shares',
   keeps INT comment 'Total number of times kept',
+  createdAt DATETIME COMMENT CURRENT_TIMESTAMP 'Vault Created Time',
+  updatedAt DATETIME COMMENT DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 'Vault Updated time',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
 CREATE TABLE IF NOT EXISTS vaultkeep(

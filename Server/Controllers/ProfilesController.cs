@@ -15,6 +15,9 @@ namespace Server.Controllers
   {
 
     private readonly AccountService _acnts;
+    private readonly KeepsService _ks;
+    private readonly VaultsService _vs;
+
 
     public ProfilesController(AccountService acnts)
     {
@@ -30,7 +33,34 @@ namespace Server.Controllers
         Profile p = _acnts.GetProfileById(id);
         return Ok(p);
       }
-      catch (System.Exception e)
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{id}/keeps")]
+    public ActionResult<List<Keep>> GetKeepsByProfile(int id)
+    {
+      try
+      {
+        List<Keep> keeps = _acnts.GetKeepsByProfileId(id);
+        return Ok(keeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpGet("{id}/vaults")]
+    public ActionResult<List<Vault>> GetVaultsByProfile(int id)
+    {
+      try
+      {
+        List<Vault> vaults = _acnts.GetVaultsByProfileId(id);
+        return Ok(vaults);
+      }
+      catch (Exception e)
       {
         return BadRequest(e.Message);
       }

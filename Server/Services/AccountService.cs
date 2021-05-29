@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Server.Models;
 using Server.Repositories;
 
@@ -6,9 +8,16 @@ namespace Server.Services
   public class AccountService
   {
     private readonly AccountRepository _repo;
-    public AccountService(AccountRepository repo)
+    private readonly KeepsRepository _kr;
+    private readonly VaultsRepository _vr;
+
+
+    public AccountService(AccountRepository repo, KeepsRepository kr, VaultsRepository vr)
     {
       _repo = repo;
+      _kr = kr;
+      _vr = vr;
+
     }
 
     internal string GetProfileEmailById(string id)
@@ -32,6 +41,16 @@ namespace Server.Services
     internal Profile GetProfileById(string id)
     {
       return _repo.GetById(id);
+    }
+
+    internal List<Keep> GetKeepsByProfileId(int profileId)
+    {
+      return _kr.GetKeepsByProfileId(profileId);
+    }
+
+    internal List<Vault> GetVaultsByProfileId(int profileId)
+    {
+      return _vr.GetKeepsByProfileId(profileId);
     }
 
     internal Account Edit(Account editData, string userEmail)

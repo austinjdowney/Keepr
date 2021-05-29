@@ -15,11 +15,6 @@ namespace Server.Services
       _vr = vr;
     }
 
-    public List<Vault> GetVaults()
-    {
-      return _vr.GetAll();
-    }
-
     internal Vault GetById(int id)
     {
       Vault vault = _vr.GetById(id);
@@ -31,8 +26,18 @@ namespace Server.Services
     }
 
     internal Vault Create(Vault v)
-        {
-            return _vr.Create(v);
-        }
+    {
+      return _vr.Create(v);
+    }
+
+    internal Vault Update(Vault v, string id)
+    {
+      throw new NotImplementedException();
+    }
+
+    internal void Delete(int id1, string id2)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

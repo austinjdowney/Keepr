@@ -16,23 +16,6 @@ namespace Server.Repositories
       _db = db;
     }
 
-    internal List<Vault> GetAll()
-    {
-      string sql = @" 
-      SELECT 
-      v.*,
-      a.*
-      FROM vaults v
-      JOIN accounts a ON v.creatorId = a.id;
-      ";
-      return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
-      {
-        v.Creator = p;
-        return v;
-      }, splitOn: "id"
-      ).ToList();
-    }
-
     internal Vault GetById(int id)
     {
       string sql = @"SELECT 
@@ -48,16 +31,56 @@ namespace Server.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal List<Vault> GetVaultsByProfileId(int profileId)
+    {
+      string sql = @"
+                SELECT 
+                    r.*,
+                    a.* 
+                FROM reviews r
+                JOIN accounts a ON a.id = r.creatorId
+                WHERE r.restaurantId = @restaurantId;
+            ";
+      return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
+      {
+        v.Creator = p;
+        return v;
+      }, new { profileId }).ToList();
+    }
+
     internal Vault Create(Vault v)
     {
       string sql = @"
                 INSERT INTO 
-                vaults(name, description, img, creatorId, isPrivate )
-                VALUES (@Name, @Description, @Img, @CreatorId, @IsPrivate);
+                vaults(name, description, img, isPrivate, creatorId )
+                VALUES (@Name, @Description, @Img,@IsPrivate, @CreatorId);
                 SELECT LAST_INSERT_ID();
             ";
       v.Id = _db.ExecuteScalar<int>(sql, v);
       return v;
     }
+
+    internal Vault Update(Vault v)
+    {
+      string sql = @"
+            UPDATE vaults 
+            SET 
+                name = @Name,
+                descriptions = @Description,
+                img = @Img,
+                isPrivate = @IsPrivate,
+                creatorId= @CreatorId
+            WHERE id = @Id;
+            ";
+      _db.Execute(sql, v);
+      return v;
+    }
+
+    internal void Delete(int id)
+    {
+      string sql = "DELETE FROM vaults WHERE id = @id LIMIT 1;";
+      _db.Execute(sql, new { id });
+    }
+
   }
 }

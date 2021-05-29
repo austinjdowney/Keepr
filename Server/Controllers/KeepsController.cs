@@ -11,23 +11,39 @@ namespace Server.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultsController : ControllerBase
-  {
-    private readonly VaultsService _vs;
 
-    public VaultsController(VaultsService vs)
+  public class KeepsController : ControllerBase
+  {
+    private readonly KeepsService _ks;
+
+    public KeepsController(KeepsService ks)
     {
-      _vs = vs;
+      _ks = ks;
+
+    }
+
+    [HttpGet]
+    public ActionResult<List<Keep>> GetAllKeeps()
+    {
+      try
+      {
+        List<Keep> keeps = _ks.GetKeeps();
+        return Ok(keeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
     }
 
     [HttpGet("{id}")]
 
-    public ActionResult<Vault> GetOneVault(int id)
+    public ActionResult<Keep> GetOneKeep(int id)
     {
       try
       {
-        Vault vault = _vs.GetById(id);
-        return Ok(vault);
+        Keep keep = _ks.GetById(id);
+        return Ok(keep);
       }
       catch (Exception e)
       {
@@ -38,15 +54,15 @@ namespace Server.Controllers
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Vault>> Create([FromBody] Vault v)
+    public async Task<ActionResult<Keep>> Create([FromBody] Keep k)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        v.CreatorId = userInfo.Id;
-        Vault newVault = _vs.Create(v);
-        newVault.Creator = userInfo;
-        return Ok(newVault);
+        k.CreatorId = userInfo.Id;
+        Keep newKeep = _ks.Create(k);
+        newKeep.Creator = userInfo;
+        return Ok(newKeep);
 
       }
       catch (Exception e)
@@ -54,18 +70,19 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
+
     [Authorize]
     [HttpPut("{id}")]
 
-    public async Task<ActionResult<Vault>> Update(int id, [FromBody] Vault v)
+    public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep k)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        v.Id = id;
-        Vault newV = _vs.Update(v, userInfo.Id);
-        newV.Creator = userInfo;
-        return Ok(newV);
+        k.Id = id;
+        Keep newK = _ks.Update(k, userInfo.Id);
+        newK.Creator = userInfo;
+        return Ok(newK);
 
       }
       catch (Exception e)
@@ -81,7 +98,7 @@ namespace Server.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _vs.Delete(id, userInfo.Id);
+        _ks.Delete(id, userInfo.Id);
         return Ok("Successfully Deleted");
 
       }

@@ -15,10 +15,6 @@ namespace Server.Controllers
   {
 
     private readonly AccountService _acnts;
-    private readonly KeepsService _ks;
-    private readonly VaultsService _vs;
-
-
     public ProfilesController(AccountService acnts)
     {
       _acnts = acnts;

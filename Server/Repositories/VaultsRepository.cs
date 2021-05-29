@@ -31,21 +31,22 @@ namespace Server.Repositories
       }, new { id }).FirstOrDefault();
     }
 
-    internal List<Vault> GetVaultsByProfileId(int profileId)
+    //REVIEW.. id or profileId?
+    internal List<Vault> GetVaultsByProfileId(int id)
     {
       string sql = @"
                 SELECT 
-                    r.*,
+                    v.*,
                     a.* 
-                FROM reviews r
-                JOIN accounts a ON a.id = r.creatorId
-                WHERE r.restaurantId = @restaurantId;
+                FROM vaults v
+                JOIN accounts a ON a.id = v.creatorId
+                WHERE v.id = @id;
             ";
       return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
       {
         v.Creator = p;
         return v;
-      }, new { profileId }).ToList();
+      }, new { id }).ToList();
     }
 
     internal Vault Create(Vault v)

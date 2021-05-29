@@ -43,14 +43,15 @@ namespace Server.Services
       return _repo.GetById(id);
     }
 
-    internal List<Keep> GetKeepsByProfileId(int profileId)
+    //ProfileId is a string.. keeps are an int..
+    internal List<Keep> GetKeepsByProfileId(int id)
     {
-      return _kr.GetKeepsByProfileId(profileId);
+      return _kr.GetKeepsByProfileId(id);
     }
 
     internal List<Vault> GetVaultsByProfileId(int profileId)
     {
-      return _vr.GetKeepsByProfileId(profileId);
+      return _vr.GetVaultsByProfileId(profileId);
     }
 
     internal Account Edit(Account editData, string userEmail)

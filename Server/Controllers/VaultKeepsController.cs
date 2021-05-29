@@ -9,6 +9,9 @@ using Server.Services;
 
 namespace Server.Controllers
 {
+
+  [ApiController]
+  [Route("api/[controller]")]
   public class VaultKeepsController : ControllerBase
   {
     private readonly VaultKeepsService _vks;

@@ -53,8 +53,8 @@ namespace Server.Controllers
       }
     }
 
-    [Authorize]
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Vault>> Create([FromBody] Vault v)
     {
       try
@@ -71,8 +71,8 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
-    [Authorize]
     [HttpPut("{id}")]
+    [Authorize]
 
     public async Task<ActionResult<Vault>> Update(int id, [FromBody] Vault v)
     {
@@ -90,8 +90,8 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
-    [Authorize]
     [HttpDelete("{id}")]
+    [Authorize]
 
     public async Task<ActionResult<string>> Delete(int id)
     {

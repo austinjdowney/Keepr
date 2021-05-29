@@ -14,9 +14,9 @@ namespace Server.Services
       _kr = kr;
     }
 
-    public List<Keep> GetKeeps()
+    public List<Keep> GetAllKeeps()
     {
-      return _kr.GetAll();
+      return _kr.GetAllKeeps();
     }
 
     internal Keep GetById(int id)

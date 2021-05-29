@@ -27,7 +27,7 @@ namespace Server.Controllers
     {
       try
       {
-        List<Keep> keeps = _ks.GetKeeps();
+        List<Keep> keeps = _ks.GetAllKeeps();
         return Ok(keeps);
       }
       catch (Exception e)
@@ -52,8 +52,8 @@ namespace Server.Controllers
       }
     }
 
-    [Authorize]
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Keep>> Create([FromBody] Keep k)
     {
       try
@@ -71,8 +71,8 @@ namespace Server.Controllers
       }
     }
 
-    [Authorize]
     [HttpPut("{id}")]
+    [Authorize]
 
     public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep k)
     {
@@ -90,8 +90,8 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
-    [Authorize]
     [HttpDelete("{id}")]
+    [Authorize]
 
     public async Task<ActionResult<string>> Delete(int id)
     {

@@ -16,7 +16,7 @@ namespace Server.Repositories
       _db = db;
     }
 
-    internal List<Keep> GetAll()
+    internal List<Keep> GetAllKeeps()
     {
       string sql = @" 
       SELECT 

@@ -36,11 +36,11 @@ namespace Server.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<Keep>> GetKeepsByProfile(int id)
+    public ActionResult<List<Keep>> GetKeepsByProfile(string profileId)
     {
       try
       {
-        List<Keep> keeps = _acnts.GetKeepsByProfileId(id);
+        List<Keep> keeps = _acnts.GetKeepsByProfileId(profileId);
         return Ok(keeps);
       }
       catch (Exception e)
@@ -49,11 +49,11 @@ namespace Server.Controllers
       }
     }
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Vault>> GetVaultsByProfile(int id)
+    public ActionResult<List<Vault>> GetVaultsByProfile(string profileId)
     {
       try
       {
-        List<Vault> vaults = _acnts.GetVaultsByProfileId(id);
+        List<Vault> vaults = _acnts.GetVaultsByProfileId(profileId);
         return Ok(vaults);
       }
       catch (Exception e)

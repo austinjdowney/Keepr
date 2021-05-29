@@ -49,9 +49,15 @@ namespace Server.Repositories
       }, new { id }).FirstOrDefault();
     }
 
-    internal List<Keep> GetKeepsByProfileId(int profileId)
+    internal List<Keep> GetKeepsByProfileId(string profileId)
     {
-      throw new NotImplementedException();
+      string sql = @"
+      SELECT
+      k.*,
+      a.*
+      FROM keeps k
+      JOIN accounts a ON a.id = k.creatorId;";
+      return _db.Query<Keep, Profile, Keep>(sql, (k, p) => { k.CreatorId = p.Id; return k; }, new { profileId }, splitOn: "id").ToList();
     }
 
 

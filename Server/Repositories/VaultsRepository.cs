@@ -32,22 +32,18 @@ namespace Server.Repositories
     }
 
     //REVIEW.. id or profileId?
-    internal List<Vault> GetVaultsByProfileId(int id)
+    internal List<Vault> GetVaultsByProfileId(string profileId)
     {
       string sql = @"
-                SELECT 
-                    v.*,
-                    a.* 
-                FROM vaults v
-                JOIN accounts a ON a.id = v.creatorId
-                WHERE v.id = @id;
-            ";
-      return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
-      {
-        v.Creator = p;
-        return v;
-      }, new { id }).ToList();
+      SELECT
+      v.*,
+      a.*
+      FROM vaults v
+      JOIN accounts a ON a.id = v.creatorId;";
+      return _db.Query<Vault, Profile, Vault>(sql, (v, p) => { v.CreatorId = p.Id; return v; }, new { profileId }, splitOn: "id").ToList();
     }
+
+
 
     internal Vault Create(Vault v)
     {

@@ -28,9 +28,9 @@ namespace Server.Services
       }
       return vaultkeep;
     }
-    internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
-      return _vkr.GetKeepsByVaultId(vaultId);
+      return _vkr.GetKeepsByVaultId(id);
     }
 
     internal VaultKeep Create(VaultKeep vk)

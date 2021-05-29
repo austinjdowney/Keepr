@@ -46,7 +46,7 @@ namespace Server.Repositories
       _db.Execute(sql, new { id });
     }
 
-    internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
       string sql = @"
       SELECT k.*,
@@ -56,7 +56,7 @@ namespace Server.Repositories
       JOIN keeps k on k.id = vk.keepId
       JOIN accounts a ON a.id = k.creatorId
       WHERE vaultId = @Vaultid;";
-      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { vaultId }, splitOn: "id").ToList();
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").ToList();
     }
 
   }

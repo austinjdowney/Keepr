@@ -39,3 +39,23 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
   FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
   FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
+INSERT INTO
+  keeps (
+    name,
+    description,
+    img,
+    views,
+    shares,
+    keeps,
+    creatorId
+  )
+VALUES
+  (
+    "austin",
+    "Let's talk code!!!",
+    "//placehold.it/500x500",
+    "0",
+    "0",
+    "1",
+    "25098b19-c17a-4fee-8030-f2be11a2c267"
+  );

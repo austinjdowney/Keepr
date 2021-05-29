@@ -17,20 +17,20 @@ namespace Server.Repositories
 
     internal Account GetByEmail(string userEmail)
     {
-      string sql = "SELECT * FROM Accounts WHERE email = @userEmail";
+      string sql = "SELECT * FROM accounts WHERE email = @userEmail";
       return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
     }
 
     internal Account GetById(string id)
     {
-      string sql = "SELECT * FROM Accounts WHERE id = @id";
+      string sql = "SELECT * FROM accounts WHERE id = @id";
       return _db.QueryFirstOrDefault<Account>(sql, new { id });
     }
 
     internal Account Create(Account newAccount)
     {
       string sql = @"
-            INSERT INTO Accounts
+            INSERT INTO accounts
               (name, picture, email, id)
             VALUES
               (@Name, @Picture, @Email, @Id)";
@@ -41,7 +41,7 @@ namespace Server.Repositories
     internal Account Edit(Account update)
     {
       string sql = @"
-            UPDATE Accounts
+            UPDATE accounts
             SET 
               name = @Name,
               picture = @Picture

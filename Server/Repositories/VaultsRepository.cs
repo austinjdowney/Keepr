@@ -49,7 +49,7 @@ namespace Server.Repositories
       string sql = @"
                 INSERT INTO 
                 vaults(name, description, img, isPrivate, creatorId )
-                VALUES (@Name, @Description, @Img,@IsPrivate, @CreatorId);
+                VALUES (@Name, @Description, @Img, @IsPrivate, @CreatorId);
                 SELECT LAST_INSERT_ID();
             ";
       v.Id = _db.ExecuteScalar<int>(sql, v);

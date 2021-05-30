@@ -31,15 +31,34 @@ namespace Server
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      ConfigureCors(services);
-      ConfigureAuth(services);
-      services.AddControllers();
-      services.AddControllers();
-      services.AddSwaggerGen(c =>
+      // TODO[epic=Auth] copy/paste
+      services.AddAuthentication(options =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Keepr", Version = "v1" });
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options =>
+      {
+        options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+        options.Audience = Configuration["Auth0:Audience"];
       });
-      services.AddScoped<IDbConnection>(x => CreateDbConnection());
+
+      services.AddCors(options =>
+      {
+        options.AddPolicy("CorsDevPolicy", builder =>
+              {
+                builder
+                        .WithOrigins(new string[]{
+                          "http://localhost:8080",
+                                "http://localhost:8081"
+                              })
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials();
+              });
+      });
+      // end copy/paste
+
+      services.AddControllers();
 
       // REPOS
       services.AddScoped<AccountRepository>();
@@ -52,45 +71,24 @@ namespace Server
       services.AddTransient<KeepsService>();
       services.AddTransient<VaultKeepsService>();
 
-    }
 
-    private void ConfigureCors(IServiceCollection services)
-    {
-      services.AddCors(options =>
+      // TODO[epic=DB] database Connection
+      services.AddScoped<IDbConnection>(x => CreateDbConnection());
+
+
+
+      services.AddSwaggerGen(c =>
       {
-        options.AddPolicy("CorsDevPolicy", builder =>
-              {
-                builder
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials()
-                      .WithOrigins(new string[]{
-                        "http://localhost:8080", "http://localhost:8081"
-                  });
-              });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Keepr", Version = "v1" });
       });
     }
 
-    private void ConfigureAuth(IServiceCollection services)
-    {
-      services.AddAuthentication(options =>
-      {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-      }).AddJwtBearer(options =>
-      {
-        options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
-        options.Audience = Configuration["Auth0:Audience"];
-      });
-
-    }
-
+    // TODO[epic=DB] database Connection
     private IDbConnection CreateDbConnection()
     {
       string connectionString = Configuration["DB:gearhost"];
       return new MySqlConnection(connectionString);
     }
-
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -100,6 +98,7 @@ namespace Server
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Keepr v1"));
+        // TODO[epic=Auth] Add Cors Policy when in development mode
         app.UseCors("CorsDevPolicy");
       }
 
@@ -109,17 +108,15 @@ namespace Server
       //Similar to npm run build
 
       //Go to vue configure.js and adjust the output to ../final.server/wwwroot
-      app.UseDefaultFiles();
       app.UseStaticFiles();
-
+      app.UseDefaultFiles();
 
       app.UseRouting();
 
+      // TODO[epic=Auth] Add Authenentication so bearer gets validated
       app.UseAuthentication();
 
       app.UseAuthorization();
-
-
 
       app.UseEndpoints(endpoints =>
       {

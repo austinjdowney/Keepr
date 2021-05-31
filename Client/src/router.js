@@ -7,13 +7,17 @@ function loadPage(page) {
 
 const routes = [
   {
+    // url path
+
     path: '/',
-    name: 'Home',
+
+    // name=name on the page file name
+    name: 'HomePage',
     component: loadPage('HomePage')
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'AboutPage',
     component: loadPage('AboutPage')
   },
   {
@@ -23,7 +27,7 @@ const routes = [
     beforeEnter: authGuard
   }, {
     path: '/profiles/:id',
-    name: 'Profiles',
+    name: 'ProfilePage',
     component: loadPage('ProfilePage')
   },
   {

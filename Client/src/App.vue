@@ -1,5 +1,8 @@
 <template>
   <header>
+    <div class="ml-4">
+      <i class="fas fa-key text logo-icon">PER</i>
+    </div>
     <MyNavbar />
   </header>
   <main>
@@ -29,4 +32,9 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
+.logo-icon{
+  height: 2rem;
+  width: 2rem;
+  background-image: radial-gradient($primary-light, $primary);
+}
 </style>

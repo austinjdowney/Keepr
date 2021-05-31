@@ -1,13 +1,15 @@
 <template>
   <header>
-    <Navbar />
+    <MyNavbar />
   </header>
   <main>
     <router-view />
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      Made with 💖 by <a class="github-link" href="http://www.github.com/austinjdowney">
+        Austin Downey
+      </a>
     </div>
   </footer>
 </template>

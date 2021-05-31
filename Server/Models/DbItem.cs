@@ -10,7 +10,7 @@ namespace Server.Models
 
     [Required]
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string Description { get; set; } = "No Description";
 
     public string Img { get; set; } = "//placehold.it/200x200";
 

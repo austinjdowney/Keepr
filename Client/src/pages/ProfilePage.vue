@@ -1,21 +1,21 @@
 <template>
-  <div v-if="state.loading === true && !state.activeProfile">
+  <div v-if="state.loading === true">
     Loading...
   </div>
-  <div class="profilePage">
+  <div v-else class="profilePage">
     <div class="row">
       <div class="ml-5 my-5">
         <img :src="state.account.picture" alt="Profile Picture">
+        <div>
+          <p>{{ state.account.name }}</p>
+        </div>
       </div>
-      <div>
-        <h4>{{ state.user.name }}</h4>
       <!-- {{state.activeProfile.picture}} -->
       <!-- {{state.activeProfile.vaults.length}} -->
       <!-- {{state.activeProfile.keeps.length}} -->
-      </div>
     </div>
     <div class="row">
-      <div class="ml-4">
+      <div class="ml-5">
         <h5>Vaults</h5>
         <button title="Open Create Vault Form"
                 type="button"
@@ -30,7 +30,7 @@
       <!-- injecting each vault -->
     </div>
     <div class="row">
-      <div class="ml-4">
+      <div class="ml-5">
         <h5>Keeps</h5>
         <button title="Open Create Keep Form"
                 type="button"
@@ -44,6 +44,8 @@
       </div>
       <!-- injecting each keep -->
     </div>
+    <CreateKeepModal />
+    <CreateVaultModal />
   </div>
 </template>
 
@@ -76,8 +78,8 @@ export default {
     })
     onMounted(async() => {
       await profilesService.getProfileById(route.params.id)
-      await keepsService.getKeepsByProfileId()
-      await vaultsService.getVaultsByProfileId()
+      await keepsService.getKeepsByProfileId(route.params.id)
+      await vaultsService.getVaultsByProfileId(route.params.id)
       state.loading = false
     })
     return {

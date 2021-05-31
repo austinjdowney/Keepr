@@ -3,7 +3,7 @@ import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
 class ProfilesService {
-  async getProfile(profileId) {
+  async getProfileById(profileId) {
     try {
       const res = await api.get('/api/profiles/' + profileId)
       AppState.profile = res.data

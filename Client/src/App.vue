@@ -16,6 +16,8 @@
   </header>
   <main>
     <router-view />
+    <CreateKeepModal />
+    <CreateVaultModal />
   </main>
   <footer>
     <div class="bg-secondary text-light text-center p-4">

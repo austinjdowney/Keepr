@@ -44,8 +44,6 @@
       </div>
       <!-- injecting each keep -->
     </div>
-    <CreateKeepModal />
-    <CreateVaultModal />
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div v-if="state.loading === true">
     Loading...
   </div>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+  <div v-else class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <!-- Injecting All Keeps -->
   </div>
 </template>

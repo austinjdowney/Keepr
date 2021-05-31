@@ -7,6 +7,34 @@
     <div class="navigation__background">
 &nbsp;
     </div>
+    <span class="navbar-text">
+      <button
+        class="btn btn-outline-primary text-uppercase"
+        @click="login"
+        v-if="!user.isAuthenticated"
+      >
+        Login
+      </button>
+
+      <div class="row dropdown" v-else>
+        <div>
+          <img
+            :src="user.picture"
+            alt="user photo"
+            height="35"
+            class="rounded-circle mr-2"
+          />
+        </div>
+        <div>
+          <button
+            class=" hoverable btn btn-sm btn-outline-primary text-uppercase"
+            @click="logout"
+          >
+            logout
+          </button>
+        </div>
+      </div>
+    </span>
     <nav class="navigation__nav">
       <ul class="navigation__list" id="nav-list">
         <li class="navigation__item" @click="uncheck" id="home">
@@ -78,8 +106,8 @@ export default {
         height: 3rem;
         width: 3rem;
         position: fixed;
-        top: 1rem;
-        right: 1rem;
+        top: 3rem;
+        right: 3rem;
         border-radius: 50%;
         z-index: 1002;
         box-shadow: 0 1rem 3rem rgba($dark, .2);
@@ -90,8 +118,8 @@ export default {
         width: 2rem;
         border-radius: 50%;
         position: fixed;
-        top: 1.5rem;
-        right: 1.5rem;
+        top: 3rem;
+        right: 3.5rem;
         background-image: radial-gradient($primary-light, $primary);
         z-index: 1000;
         transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);

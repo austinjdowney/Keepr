@@ -1,48 +1,50 @@
 <template>
-  <div v-if="state.loading === true">
-    Loading...
-  </div>
-  <div v-else class="profilePage">
-    <div class="row">
-      <div class="ml-5 my-5">
-        <img :src="state.account.picture" alt="Profile Picture">
-        <div>
-          <p>{{ state.account.name }}</p>
+  <div>
+    <div v-if="state.loading === true">
+      Loading...
+    </div>
+    <div v-else class="profilePage">
+      <div class="row">
+        <div class="ml-5 my-5">
+          <img :src="state.account.picture" alt="Profile Picture">
+          <div>
+            <p>{{ state.account.name }}</p>
+          </div>
         </div>
-      </div>
       <!-- {{state.activeProfile.picture}} -->
       <!-- {{state.activeProfile.vaults.length}} -->
       <!-- {{state.activeProfile.keeps.length}} -->
-    </div>
-    <div class="row">
-      <div class="ml-5">
-        <h5>Vaults</h5>
-        <button title="Open Create Vault Form"
-                type="button"
-                class="btn btn-sm btn-grad"
-                data-toggle="modal"
-                data-target="#new-vault-form"
-                v-if="state.account.id === route.params.id"
-        >
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
       </div>
+      <div class="row">
+        <div class="ml-5">
+          <h5>Vaults</h5>
+          <button title="Open Create Vault Form"
+                  type="button"
+                  class="btn btn-sm btn-grad"
+                  data-toggle="modal"
+                  data-target="#new-vault-form"
+                  v-if="state.account.id === route.params.id"
+          >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
       <!-- injecting each vault -->
-    </div>
-    <div class="row">
-      <div class="ml-5">
-        <h5>Keeps</h5>
-        <button title="Open Create Keep Form"
-                type="button"
-                class="btn btn-sm btn-grad"
-                data-toggle="modal"
-                data-target="#new-keep-form"
-                v-if="state.account.id === route.params.id"
-        >
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
       </div>
+      <div class="row">
+        <div class="ml-5">
+          <h5>Keeps</h5>
+          <button title="Open Create Keep Form"
+                  type="button"
+                  class="btn btn-sm btn-grad"
+                  data-toggle="modal"
+                  data-target="#new-keep-form"
+                  v-if="state.account.id === route.params.id"
+          >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
       <!-- injecting each keep -->
+      </div>
     </div>
   </div>
 </template>

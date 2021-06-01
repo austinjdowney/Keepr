@@ -4,7 +4,7 @@
       <img :src="keeps.img" alt="Keep's Picture" class="position-relative">
       <div>
         <p>{{ keeps.name }}</p>
-        <img :src="keeps.Creator.picture" alt="" class="keeps-creator">
+        <img :src="keeps.creator.picture" alt="" class="keeps-creator">
       </div>
     </div>
   </div>
@@ -26,21 +26,21 @@ export default {
   },
   setup(props) {
     const route = useRoute()
-    const state= reactive({
-      newKeep:{},
-      keeps: computed(()=> AppState.keeps),
-      user: computed(()=> AppState.user),
-      account: computed(()=> AppState.account)
+    const state = reactive({
+      newKeep: {},
+      keeps: computed(() => AppState.keeps),
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account)
     })
     return {
       state,
       route,
-      async deleteKeep(){
-        try{
-          if(await Notification confirmACtion('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')){
+      async deleteKeep() {
+        try {
+          if (await Notification.confirmACtion('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')) {
             await keepsService.deleteKeep(props.keeps.id, state.account.id)
           }
-        }catch(error){
+        } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
         }
       }

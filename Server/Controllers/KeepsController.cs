@@ -83,7 +83,6 @@ namespace Server.Controllers
         Keep newK = _ks.Update(k, userInfo.Id);
         newK.Creator = userInfo;
         return Ok(newK);
-
       }
       catch (Exception e)
       {

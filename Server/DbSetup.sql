@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS vaults(
   description VARCHAR(255) comment 'Description of Vault',
   img VARCHAR(255) comment 'Vault Picture',
   isPrivate BOOLEAN comment 'Vault private or public',
-  createdAt DATETIME COMMENT CURRENT_TIMESTAMP 'Vault Created Time',
-  updatedAt DATETIME COMMENT DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 'Vault Updated time',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Vault Created Time',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Vault Updated time',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
 CREATE TABLE IF NOT EXISTS keeps(
@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS keeps(
   views INT comment 'Number of views of keep',
   shares INT comment 'Number of shares',
   keeps INT comment 'Total number of times kept',
-  createdAt DATETIME COMMENT CURRENT_TIMESTAMP 'Vault Created Time',
-  updatedAt DATETIME COMMENT DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 'Vault Updated time',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Vault Created Time',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Vault Updated time',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 comment '';
 CREATE TABLE IF NOT EXISTS vaultkeeps(
@@ -59,3 +59,4 @@ VALUES
     "1",
     "25098b19-c17a-4fee-8030-f2be11a2c267"
   );
+DROP TABLE accounts

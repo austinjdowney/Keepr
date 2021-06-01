@@ -28,8 +28,8 @@ namespace Server.Controllers
     {
       try
       {
-        Vault vault = _vs.GetById(id);
-        return Ok(vault);
+        Vault v = _vs.GetById(id);
+        return Ok(v);
       }
       catch (Exception e)
       {
@@ -39,12 +39,26 @@ namespace Server.Controllers
     }
     [HttpGet("{id}/keeps")]
 
-    public ActionResult<List<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    public async Task<ActionResult<List<VaultKeepViewModel>>> GetKeepsByVaultId(int id)
     {
       try
       {
-        List<VaultKeepViewModel> vkvm = _vks.GetKeepsByVaultId(id);
-        return Ok(vkvm);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Vault v = _vs.GetById(id);
+        List<VaultKeepViewModel> vk = _vks.GetKeepsByVaultId(id);
+        if (userInfo == null && v.IsPrivate == true)
+        {
+          throw new Exception("HEAVILY GUARDED VAULT");
+        }
+        if (v.IsPrivate == true)
+        {
+          if (userInfo.Id == v.CreatorId)
+          {
+            return Ok(vk);
+          }
+          throw new Exception("NOT YOUR VAULT");
+        }
+        return Ok(vk);
       }
       catch (Exception e)
       {
@@ -64,7 +78,6 @@ namespace Server.Controllers
         Vault newVault = _vs.Create(v);
         newVault.Creator = userInfo;
         return Ok(newVault);
-
       }
       catch (Exception e)
       {

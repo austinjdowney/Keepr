@@ -2,14 +2,14 @@
   <header>
     <div class="row bg-secondary">
       <div class="
-         col-6 mx-3"
+         col-3 mx-3"
       >
         <router-link :to="{ name: 'HomePage' }" class="nav-link">
           <i class="fas fa-key text-primary fa-2x ml-3"></i>
           <span class="mx-1 text-primary"><strong>PER</strong></span>
         </router-link>
       </div>
-      <div class="col-4">
+      <div class="col">
         <MyNavbar />
       </div>
     </div>

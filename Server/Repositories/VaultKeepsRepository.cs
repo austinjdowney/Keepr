@@ -55,7 +55,7 @@ namespace Server.Repositories
       FROM vaultkeeps vk
       JOIN keeps k on k.id = vk.keepId
       JOIN accounts a ON a.id = k.creatorId
-      WHERE vaultId = @Vaultid;";
+      WHERE vk.id = @id;";
       return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").ToList();
     }
 

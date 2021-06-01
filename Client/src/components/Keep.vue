@@ -1,7 +1,7 @@
 <template>
   <div class="keep col-4">
     <div>
-      <img :src="keeps.img" alt="Keep's Picture" class="position-relative">
+      <img :src="keeps.img" alt="Keep's Picture" class="keeps-background">
       <div>
         <p>{{ keeps.name }}</p>
         <img :src="keeps.creator.picture" alt="" class="keeps-creator">
@@ -51,5 +51,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.keeps-background{
+  position:relative;
+}
+.keeps-creator{
+  position: absolute;
+  top:2rem;
+}
 </style>

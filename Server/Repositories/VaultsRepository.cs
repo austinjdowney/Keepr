@@ -62,10 +62,9 @@ namespace Server.Repositories
             UPDATE vaults 
             SET 
                 name = @Name,
-                descriptions = @Description,
+                description = @Description,
                 img = @Img,
-                isPrivate = @IsPrivate,
-                creatorId= @CreatorId
+                isPrivate = @IsPrivate
             WHERE id = @Id;
             ";
       _db.Execute(sql, v);

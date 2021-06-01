@@ -12,7 +12,7 @@ namespace Server.Models
     public string Name { get; set; }
     public string Description { get; set; } = "No Description";
 
-    public string Img { get; set; } = "//placehold.it/200x200";
+    public string Img { get; set; } = "//placehold.it/100x100";
 
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

@@ -80,10 +80,9 @@ namespace Server.Repositories
             UPDATE keeps 
             SET 
                 name = @Name,
-                descriptions = @Description,
+                description = @Description,
                 img = @Img,
-                views = @Views, shares = @Shares, keeps = @Keeps,
-                creatorId= @CreatorId
+                views = @Views, shares = @Shares, keeps = @Keeps
             WHERE id = @Id;
             ";
       _db.Execute(sql, k);

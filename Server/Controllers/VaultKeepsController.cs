@@ -22,11 +22,11 @@ namespace Server.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<VaultKeep>> GetAllVaultKeeps()
+    public ActionResult<List<VaultKeepViewModel>> GetAllVaultKeeps()
     {
       try
       {
-        List<VaultKeep> vaultkeeps = _vks.GetAllVaultKeeps();
+        List<VaultKeepViewModel> vaultkeeps = _vks.GetAllVaultKeeps();
         return Ok(vaultkeeps);
       }
       catch (Exception e)
@@ -37,18 +37,10 @@ namespace Server.Controllers
 
     [HttpGet("{id}")]
 
-    public ActionResult<VaultKeep> GetOneVaultKeep(int id)
+    public ActionResult<VaultKeepViewModel> GetOneVaultKeep(int id)
     {
-      try
-      {
-        VaultKeep vaultkeep = _vks.GetById(id);
-        return Ok(vaultkeep);
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
+      VaultKeepViewModel vaultkeep = _vks.GetById(id);
+      return Ok(vaultkeep);
     }
 
     [Authorize]
@@ -68,6 +60,7 @@ namespace Server.Controllers
         return BadRequest(e.Message);
       }
     }
+
     [Authorize]
     [HttpDelete("{id}")]
 

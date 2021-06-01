@@ -15,23 +15,33 @@ namespace Server.Repositories
     {
       _db = db;
     }
-    internal List<VaultKeep> GetAll()
+    internal List<VaultKeepViewModel> GetAll()
     {
       string sql = @"
-      SELECT * FROM vaultKeeps";
-      return _db.Query<VaultKeep>(sql).ToList();
+      SELECT * FROM vaultkeeps";
+      return _db.Query<VaultKeepViewModel>(sql).ToList();
     }
 
-    internal VaultKeep GetById(int id)
+    internal VaultKeepViewModel GetById(int id)
     {
-      string sql = "SELECT * FROM vaultKeeps WHERE id = @Id";
-      return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
+      string sql = @"
+      SELECT
+       k.*,
+      vk.id as VaultKeepId,
+      vk.keepId as KeepId,
+      vk.vaultId as VaultId,
+      a.*
+      FROM vaultkeeps vk
+      JOIN keeps k on k.id = vk.keepId
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE vk.id = @id;";
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").FirstOrDefault();
     }
 
     internal VaultKeep Create(VaultKeep vk)
     {
       string sql = @"
-        INSERT INTO vaultKeeps
+        INSERT INTO vaultkeeps
         (creatorId, keepId, vaultId)
         VALUES
         (@CreatorId, @KeepId, @VaultId);
@@ -49,15 +59,17 @@ namespace Server.Repositories
     internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
     {
       string sql = @"
-      SELECT k.*,
-      vk.id as VKeepId,
+      SELECT
+       k.*,
+      vk.id as VaultKeepId,
+      vk.keepId as KeepId,
+      vk.vaultId as VaultId,
       a.*
       FROM vaultkeeps vk
       JOIN keeps k on k.id = vk.keepId
       JOIN accounts a ON a.id = k.creatorId
-      WHERE vk.id = @id;";
+      WHERE vk.vaultId = @id;";
       return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").ToList();
     }
-
   }
 }

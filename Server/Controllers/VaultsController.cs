@@ -24,11 +24,25 @@ namespace Server.Controllers
 
     [HttpGet("{id}")]
 
-    public ActionResult<Vault> GetOneVault(int id)
+    public async Task<ActionResult<Vault>> GetOneVault(int id)
     {
       try
       {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         Vault v = _vs.GetById(id);
+        if (userInfo == null && v.IsPrivate == true)
+        {
+          throw new Exception("HEAVILY GUARDED VAULT");
+        }
+        if (v.IsPrivate == true)
+        {
+          if (userInfo.Id == v.CreatorId)
+          {
+            return Ok(v);
+          }
+          throw new Exception("NOT YOUR VAULT");
+
+        }
         return Ok(v);
       }
       catch (Exception e)

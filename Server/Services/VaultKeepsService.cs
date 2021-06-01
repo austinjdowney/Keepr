@@ -14,14 +14,14 @@ namespace Server.Services
       _vkr = vkr;
     }
 
-    internal List<VaultKeep> GetAllVaultKeeps()
+    internal List<VaultKeepViewModel> GetAllVaultKeeps()
     {
       return _vkr.GetAll();
     }
 
-    internal VaultKeep GetById(int id)
+    internal VaultKeepViewModel GetById(int id)
     {
-      VaultKeep vaultkeep = _vkr.GetById(id);
+      VaultKeepViewModel vaultkeep = _vkr.GetById(id);
       if (vaultkeep == null)
       {
         throw new Exception("invalid id");
@@ -36,19 +36,16 @@ namespace Server.Services
     internal VaultKeep Create(VaultKeep vk)
     {
       return _vkr.Create(vk);
-
     }
 
     internal void Delete(int id, string userId)
     {
-
-      VaultKeep vaultkeep = GetById(id);
+      VaultKeepViewModel vaultkeep = GetById(id);
       if (vaultkeep.CreatorId != userId)
       {
         throw new Exception("YOU CANT DELETE THIS KEEP.. NOT YOURS");
       }
       _vkr.Delete(id);
     }
-
   }
 }

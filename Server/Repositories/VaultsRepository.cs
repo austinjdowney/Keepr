@@ -31,15 +31,16 @@ namespace Server.Repositories
       }, new { id }).FirstOrDefault();
     }
 
-    internal List<Vault> GetVaultsByProfileId(string profileId)
+    internal List<Vault> GetVaultsByProfileId(string id)
     {
       string sql = @"
       SELECT
       v.*,
       a.*
       FROM vaults v
-      JOIN accounts a ON a.id = v.creatorId;";
-      return _db.Query<Vault, Profile, Vault>(sql, (v, p) => { v.CreatorId = p.Id; return v; }, new { profileId }, splitOn: "id").ToList();
+      JOIN accounts a ON a.id = v.creatorId
+      WHERE v.creatorId= @Id;";
+      return _db.Query<Vault, Profile, Vault>(sql, (v, p) => { v.CreatorId = p.Id; return v; }, new { id }, splitOn: "id").ToList();
     }
 
 

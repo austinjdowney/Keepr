@@ -4,6 +4,7 @@
   </div>
   <div v-else class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <!-- Injecting All Keeps -->
+    <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
   </div>
 </template>
 

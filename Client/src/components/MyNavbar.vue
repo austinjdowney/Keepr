@@ -67,7 +67,9 @@ export default {
   setup() {
     // const router = useRouter()
     const state = reactive({
-      dropOpen: false
+      dropOpen: false,
+      account: computed(() => AppState.account)
+
     })
     // GO BACK TO HERE
     return {

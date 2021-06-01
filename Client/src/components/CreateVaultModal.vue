@@ -57,7 +57,7 @@
                          class="form-control"
                          id="imgUrl"
                          placeholder="Img Url..."
-                         v-model="state.newVault.Img"
+                         v-model="state.newVault.img"
                   >
                 </div>
               </div>

@@ -59,4 +59,3 @@ VALUES
     "1",
     "25098b19-c17a-4fee-8030-f2be11a2c267"
   );
-DROP TABLE accounts

@@ -58,7 +58,7 @@ namespace Server.Repositories
       FROM keeps k
       JOIN accounts a ON a.id = k.creatorId
       WHERE k.creatorId = @id;";
-      return _db.Query<Keep, Profile, Keep>(sql, (k, p) => { k.CreatorId = p.Id; return k; }, new { id }, splitOn: "id").ToList();
+      return _db.Query<Keep, Profile, Keep>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").ToList();
     }
 
 

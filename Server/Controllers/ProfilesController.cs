@@ -15,9 +15,12 @@ namespace Server.Controllers
   {
 
     private readonly AccountService _acnts;
-    public ProfilesController(AccountService acnts)
+    private readonly VaultsService _vs;
+
+    public ProfilesController(AccountService acnts, VaultsService vs)
     {
       _acnts = acnts;
+      _vs = vs;
     }
 
 
@@ -36,11 +39,11 @@ namespace Server.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<Keep>> GetKeepsByProfile(string profileId)
+    public ActionResult<List<Keep>> GetKeepsByProfile(string id)
     {
       try
       {
-        List<Keep> keeps = _acnts.GetKeepsByProfileId(profileId);
+        List<Keep> keeps = _acnts.GetKeepsByProfileId(id);
         return Ok(keeps);
       }
       catch (Exception e)
@@ -49,11 +52,12 @@ namespace Server.Controllers
       }
     }
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Vault>> GetVaultsByProfile(string profileId)
+    public ActionResult<List<Vault>> GetVaultsByProfileId(string id)
     {
       try
       {
-        List<Vault> vaults = _acnts.GetVaultsByProfileId(profileId);
+
+        List<Vault> vaults = _acnts.GetVaultsByProfileId(id);
         return Ok(vaults);
       }
       catch (Exception e)

@@ -23,7 +23,7 @@ namespace Server.Repositories
       a.* 
       FROM vaults v
       JOIN accounts a ON a.id = v.creatorId
-      WHERE v.id=@id";
+      WHERE v.id=@Id";
       return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
       {
         v.Creator = p;
@@ -39,8 +39,8 @@ namespace Server.Repositories
       a.*
       FROM vaults v
       JOIN accounts a ON a.id = v.creatorId
-      WHERE v.creatorId= @Id;";
-      return _db.Query<Vault, Profile, Vault>(sql, (v, p) => { v.CreatorId = p.Id; return v; }, new { id }, splitOn: "id").ToList();
+      WHERE v.creatorId= @id;";
+      return _db.Query<Vault, Profile, Vault>(sql, (v, p) => { v.Creator = p; return v; }, new { id }, splitOn: "id").ToList();
     }
 
 

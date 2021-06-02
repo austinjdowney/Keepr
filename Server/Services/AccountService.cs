@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Server.Models;
 using Server.Repositories;
 
@@ -44,15 +45,15 @@ namespace Server.Services
     }
 
     //ProfileId is a string.. keepId are an int..
-    internal List<Keep> GetKeepsByProfileId(string profileId)
+    internal List<Keep> GetKeepsByProfileId(string id)
     {
-      return _kr.GetKeepsByProfileId(profileId);
+      return _kr.GetKeepsByProfileId(id);
     }
 
     //ProfileId is a string.. vaultId are an int..
-    internal List<Vault> GetVaultsByProfileId(string profileId)
+    internal List<Vault> GetVaultsByProfileId(string id)
     {
-      return _vr.GetVaultsByProfileId(profileId);
+      return _vr.GetVaultsByProfileId(id).ToList().FindAll(v => v.IsPrivate == false);
     }
 
     internal Account Edit(Account editData, string userEmail)

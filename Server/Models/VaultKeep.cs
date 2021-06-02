@@ -16,9 +16,9 @@ namespace Server.Models
   public class VaultKeepViewModel : Keep
   {
     public int VaultKeepId { get; set; }
-    [Required]
-    public int VaultId { get; set; }
-    [Required]
-    public int KeepId { get; set; }
+    // [Required]
+    // public int VaultId { get; set; }
+    // [Required]
+    // public int KeepId { get; set; }
   }
 }

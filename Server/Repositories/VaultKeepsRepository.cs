@@ -27,7 +27,7 @@ namespace Server.Repositories
       string sql = @"
       SELECT
        k.*,
-      vk.id as vaultkeepId,
+      vk.id as vaultKeepId,
       vk.keepId as keepId,
       vk.vaultId as vaultId,
       a.*
@@ -61,16 +61,14 @@ namespace Server.Repositories
     {
       string sql = @"
       SELECT
-       k.*,
-      vk.id as vaultkeepId,
-      vk.keepId as keepId,
-      vk.vaultId as vaultId,
+      k.*,
+      vk.id AS VaultKeepId,
       a.*
       FROM vaultkeeps vk
-      JOIN keeps k on k.id = vk.keepId
+      JOIN keeps k on vk.keepId = k.id
       JOIN accounts a ON a.id = k.creatorId
-      WHERE vk.vaultId = @id;";
-      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").ToList();
+      WHERE vaultId = @id;";
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (vk, p) => { vk.Creator = p; return vk; }, new { id }, splitOn: "id").ToList();
     }
   }
 }

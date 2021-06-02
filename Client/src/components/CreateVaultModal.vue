@@ -41,13 +41,16 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
-                  <label for="description">Description:</label>
-                  <input type="text"
-                         class="form-control"
-                         id="description"
-                         placeholder="Description..."
-                         v-model="state.newVault.description"
+                  <label for="description">Description</label>
+                  <textarea class="form-control input-box locked-scroll"
+                            rows="3"
+                            wrap="hard"
+                            placeholder="Description..."
+                            minlength="3"
+                            v-model="state.newVault.description"
+                            id="description"
                   >
+              </textarea>
                 </div>
               </div>
               <div class="col-12">
@@ -137,5 +140,11 @@ export default {
   /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+
+.locked-scroll{
+  height:20vh;
+  overflow-y: scroll;
+  word-break: break-all;
 }
 </style>

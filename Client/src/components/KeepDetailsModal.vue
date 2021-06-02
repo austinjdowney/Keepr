@@ -7,8 +7,8 @@
       <div class="col-6">
         <div class="row">
           <div class="col-12">
-            <i class="far fa-eye" title="number of views">{{ keeps.views }}</i>
-            <i class="fab fa-kaggle" title="number of keeps">{{ keeps.keeps }}</i>
+            <i class="far fa-eye" title="number of views">{{ keeps.Views }}</i>
+            <i class="fab fa-kaggle" title="number of keeps">{{ keeps.Keeps }}</i>
             <i class="fas fa-share-alt" title="number of shares"> 0 </i>
           </div>
         </div>

@@ -41,7 +41,7 @@ namespace Server.Repositories
                 a.* 
             FROM keeps k
             JOIN accounts a ON a.id = k.CreatorId
-            WHERE k.id = @id";
+            WHERE k.id = @Id";
       return _db.Query<Keep, Profile, Keep>(sql, (k, p) =>
       {
         k.Creator = p;
@@ -92,7 +92,7 @@ namespace Server.Repositories
 
     internal void Delete(int id)
     {
-      string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
+      string sql = "DELETE FROM keeps WHERE id = @Id LIMIT 1;";
       _db.Execute(sql, new { id });
     }
   }

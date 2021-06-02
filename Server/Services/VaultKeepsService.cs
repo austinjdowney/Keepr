@@ -40,8 +40,8 @@ namespace Server.Services
 
     internal void Delete(int id, string userId)
     {
-      VaultKeepViewModel vaultkeep = GetById(id);
-      if (vaultkeep.CreatorId != userId)
+      VaultKeepViewModel vkeep = _vkr.GetById(id);
+      if (vkeep.CreatorId != userId)
       {
         throw new Exception("YOU CANT DELETE THIS KEEP.. NOT YOURS");
       }

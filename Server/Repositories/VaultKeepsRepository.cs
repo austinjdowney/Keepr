@@ -27,14 +27,15 @@ namespace Server.Repositories
       string sql = @"
       SELECT
        k.*,
-      vk.id as VaultKeepId,
-      vk.keepId as KeepId,
-      vk.vaultId as VaultId,
+      vk.id as vaultkeepId,
+      vk.keepId as keepId,
+      vk.vaultId as vaultId,
       a.*
       FROM vaultkeeps vk
       JOIN keeps k on k.id = vk.keepId
       JOIN accounts a ON a.id = k.creatorId
       WHERE vk.id = @id;";
+      // string sql = " SELECT * FROM vaultkeeps WHERE id=@id";
       return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) => { k.Creator = p; return k; }, new { id }, splitOn: "id").FirstOrDefault();
     }
 
@@ -52,7 +53,7 @@ namespace Server.Repositories
 
     internal void Delete(int id)
     {
-      string sql = "DELETE FROM vaultkeeps WHERE id = @id LIMIT 1;";
+      string sql = "DELETE FROM vaultkeeps WHERE id = @Id LIMIT 1;";
       _db.Execute(sql, new { id });
     }
 
@@ -61,9 +62,9 @@ namespace Server.Repositories
       string sql = @"
       SELECT
        k.*,
-      vk.id as VaultKeepId,
-      vk.keepId as KeepId,
-      vk.vaultId as VaultId,
+      vk.id as vaultkeepId,
+      vk.keepId as keepId,
+      vk.vaultId as vaultId,
       a.*
       FROM vaultkeeps vk
       JOIN keeps k on k.id = vk.keepId

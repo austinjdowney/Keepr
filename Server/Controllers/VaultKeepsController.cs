@@ -39,7 +39,7 @@ namespace Server.Controllers
 
     public ActionResult<VaultKeepViewModel> GetOneVaultKeep(int id)
     {
-      VaultKeepViewModel vaultkeep = _vks.GetById(id);
+      Keep vaultkeep = _vks.GetById(id);
       return Ok(vaultkeep);
     }
 

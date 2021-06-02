@@ -1,11 +1,10 @@
 <template>
-  <div class="col-4 keep body masonry-with-flex image-fluid">
+  <div class="keep body image-fluid">
     <div>
       <img :src="keeps.img" alt="Keep's Picture" class="keeps-background image-fluid">
       <div>
         <p>
           {{ keeps.name }}
-
           <img :src="keeps.creator.picture" alt="" class="keeps-creator rounded-circle">
         </p>
       </div>

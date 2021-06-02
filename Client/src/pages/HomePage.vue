@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <div v-if="state.loading === true">
-      Loading...
-    </div>
-    <div v-else class="masonry-with-flex flex-grow-1 body image-fluid my-2">
+  <div v-if="state.loading === true">
+    Loading...
+  </div>
+  <div v-else class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-columns">
+          <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
+        </div>
+      </div>
       <!-- Injecting All Keeps -->
-      <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
     </div>
   </div>
 </template>

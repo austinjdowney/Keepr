@@ -26,6 +26,10 @@ namespace Server.Services
       {
         throw new Exception("invalid id");
       }
+
+      //INCREMENTING keep.keeps++
+      keep.Views++;
+      _kr.Update(keep);
       return keep;
     }
 

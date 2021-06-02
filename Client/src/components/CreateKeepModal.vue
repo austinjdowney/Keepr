@@ -46,6 +46,8 @@
                          class="form-control"
                          id="description"
                          placeholder="Description..."
+                         rows:
+                         3
                          v-model="state.newKeep.description"
                   >
                 </div>
@@ -62,25 +64,6 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <!-- views/shares/keeps -->
-            </div>
-            <!-- <div class="col-12">
-                <div class="dropdown">
-                  <label class="mr-1">Select Fuel Type</label>
-                  <select class="form-select" style="border: 1px gray solid;" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
-                    <option value="unleaded">
-                      Unleaded
-                    </option>
-                    <option value="hybrid">
-                      Hybrid
-                    </option>
-                    <option value="diesel">
-                      Diesel
-                    </option>
-                  </select>
-                </div>
-              </div> -->
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-grad-modal">
@@ -109,6 +92,8 @@ export default {
     const state = reactive({
       newKeep: {},
       keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults),
+      vaultKeeps: computed(() => AppState.vaultKeeps),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account)
     })

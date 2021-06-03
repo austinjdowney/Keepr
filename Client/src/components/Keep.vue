@@ -1,7 +1,7 @@
 <template>
   <div class="keep body">
     <div class="card">
-      <div v-if="keeps.creatorId">
+      <div v-if="state.account.id === keeps.creatorId">
         <i @click="deleteKeep" class="fa fa-trash" aria-hidden="true"></i>
       </div>
       <div @click="activeKeep"
@@ -64,7 +64,7 @@ export default {
       route,
       async deleteKeep() {
         try {
-          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')) {
+          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes, Remove Keep')) {
             await keepsService.deleteKeep(props.keeps.id, state.account.id)
           }
         } catch (error) {
@@ -72,7 +72,7 @@ export default {
         }
       },
       async activeKeep() {
-        state.activeKeep = props.keeps
+        // state.activeKeep = props.keeps
         await keepsService.getKeepById(props.keeps.id)
       }
     }
@@ -98,7 +98,7 @@ img{
   bottom:1rem;
   left:1.5rem;
   font-weight: bold;
-  font-size:2rem;
+  font-size:15px;
 }
 // body {
 //   margin: 0;

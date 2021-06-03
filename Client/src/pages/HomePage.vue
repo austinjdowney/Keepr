@@ -9,6 +9,7 @@
           <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
         </div>
       </div>
+      <!-- <KeepDetailsModal /> -->
       <KeepDetailsModal />
 
       <!-- Injecting All Keeps -->

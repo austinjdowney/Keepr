@@ -1,8 +1,8 @@
 <template>
-  <div class="keep body">
+  <div class="vaultKeeps body">
     <div class="card">
-      <div>
-        <i @click="deleteVaultKeep" class="fa fa-trash" aria-hidden="true"></i>
+      <div v-if="state.account.id === state.vaults.creatorId">
+        <i @click="deleteVaultKeep" class="fa fa-eye" aria-hidden="true"></i>
       </div>
       <div @click="activeKeep"
            data-toggle="modal"
@@ -40,10 +40,11 @@
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
-import { keepsService } from '../services/KeepsService'
+// import { keepsService } from '../services/KeepsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 import Notification from '../utils/Notification'
 export default {
-  name: 'Keep',
+  name: 'VaultKeeps',
   props: {
     keeps: {
       type: Object,
@@ -54,6 +55,7 @@ export default {
     const route = useRoute()
     const state = reactive({
       keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults),
       activeKeep: computed(() => AppState.activeKeep),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
@@ -65,16 +67,16 @@ export default {
       route,
       async deleteVaultKeep() {
         try {
-          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')) {
-            await keepsService.deleteVaultKeep(props.keeps.id, state.account.id)
+          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep from Vault')) {
+            await vaultKeepsService.deleteVaultKeep(state.vaultKeeps.id, state.account.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
         }
       },
-      async activeKeep() {
-        state.activeKeep = props.keeps
-        await keepsService.getKeepById(props.keeps.id)
+      async getVaultKeepById() {
+        state.vaultKeeps = props.keeps
+        await vaultKeepsService.getKeepsByVaultId(state.vaultKeeps.id)
       }
     }
   }

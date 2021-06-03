@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card-columns">
-          <VaultKeeps v-for="vaultkeeps in state.vaultkeeps" :key="vaultkeeps.id" :keeps="keeps" />
+          <VaultKeeps v-for="vaultKeeps in state.vaultKeeps" :key="vaultKeeps.id" :keeps="keeps" />
 
           <!-- injecting VaultKeeps.. keeps for this vault -->
         </div>
@@ -33,7 +33,7 @@ export default {
       vault: computed(() => AppState.vault),
       activeVault: computed(() => AppState.activeVault),
       keeps: computed(() => AppState.keeps),
-      vaultkeeps: computed(() => AppState.vaultkeeps)
+      vaultKeeps: computed(() => AppState.vaultKeeps)
       // vaultkeeps or keeps           ^^
     })
     onMounted(async() => {

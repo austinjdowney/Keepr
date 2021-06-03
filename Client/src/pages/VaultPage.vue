@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card-columns">
-          <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
+          <VaultKeeps v-for="vaultkeeps in state.vaultkeeps" :key="vaultkeeps.id" :keeps="keeps" />
 
           <!-- injecting VaultKeeps.. keeps for this vault -->
         </div>

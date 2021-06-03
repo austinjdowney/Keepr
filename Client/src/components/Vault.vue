@@ -69,6 +69,8 @@ img{
   position:absolute;
   bottom:1rem;
   left:1.5rem;
+  font-weight: bold;
+  font-size:2rem;
 }
 // body {
 //   margin: 0;

@@ -1,8 +1,8 @@
 <template>
   <div class="keep body">
     <div class="card">
-      <div v-if="keeps.creatorId">
-        <i @click="deleteKeep" class="fa fa-trash" aria-hidden="true"></i>
+      <div>
+        <i @click="deleteVaultKeep" class="fa fa-trash" aria-hidden="true"></i>
       </div>
       <div @click="activeKeep"
            data-toggle="modal"
@@ -57,15 +57,16 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      activeProfile: computed(() => AppState.activeProfile)
+      activeProfile: computed(() => AppState.activeProfile),
+      vaultKeeps: computed(() => AppState.vaultKeeps)
     })
     return {
       state,
       route,
-      async deleteKeep() {
+      async deleteVaultKeep() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')) {
-            await keepsService.deleteKeep(props.keeps.id, state.account.id)
+            await keepsService.deleteVaultKeep(props.keeps.id, state.account.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

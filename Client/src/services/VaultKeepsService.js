@@ -12,6 +12,11 @@ class VaultKeepsService {
     AppState.vaultkeeps = res.data
   }
 
+  async getKeepsByVaultId(vaultId) {
+    const res = await api.get(`api/vaults/${vaultId}/keeps`)
+    AppState.keeps = res.data
+  }
+
   async createVaultKeep(data) {
     const res = await api.post('api/vaultkeeps', data)
     this.getVaultKeepsById(res.data.creatorId)

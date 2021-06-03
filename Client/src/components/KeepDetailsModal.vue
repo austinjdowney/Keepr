@@ -51,13 +51,20 @@
               <div class="col-12">
                 <div class="dropdown">
                   <label class="mr-1">Select Your Vault</label>
-                  <select class="form-select" aria-labelledby="dropdownMenuButton" style="border: 1px gray solid;" v-model="state.newVaultKeep.vaultId" required>
+                  <select @click="createVaultKeep"
+                          class="form-select"
+                          aria-labelledby="dropdownMenuButton"
+                          style="border: 1px gray solid;"
+                          v-model="state.newVaultKeep.vaultId"
+                          required
+                  >
                     <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
                       {{ vault.name }}
                     </option>
                   </select>
                 </div>
-                <button type="button"
+                <button @click="deleteKeep"
+                        type="button"
                         v-if="state.account.id === keeps.creatorId"
                         class="btn btn-grad-modal"
                         data-dismiss="modal"
@@ -109,7 +116,7 @@ export default {
         try {
           state.newVaultKeep.keepId = props.keeps.id
           await vaultKeepsService.createVaultKeep(state.newVaultKeep)
-          $('#keepDetailsModal').modal('hide')
+          $('#keep-details-modal').modal('hide')
           Notification.toast('Successfully Added To Vault', 'success')
           state.newVaultKeep = {}
         } catch (error) {

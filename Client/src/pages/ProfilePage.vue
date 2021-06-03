@@ -11,9 +11,8 @@
             <p>{{ state.account.name }}</p>
           </div>
         </div>
-      <!-- {{state.activeProfile.picture}} -->
-      <!-- {{state.activeProfile.vaults.length}} -->
-      <!-- {{state.activeProfile.keeps.length}} -->
+        <!-- {{ state.activeProfile.vaults.length }}
+        {{ state.activeProfile.keeps.length }} -->
       </div>
       <div class="row">
         <div class="ml-5">

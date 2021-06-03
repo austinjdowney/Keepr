@@ -1,13 +1,15 @@
 <template>
-  <div class="vaultPage container-fluid" v-if="state.vault">
+  <div class="vaultPage container-fluid" v-if="state.activeVault">
     <div class="row">
       <div class="col-12 ml-3">
-        <h1>{{ state.vault.name }}</h1>
+        <h1>{{ state.activeVault.name }}</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="card-columns">
+          <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
+
           <!-- injecting VaultKeeps.. keeps for this vault -->
         </div>
       </div>
@@ -28,6 +30,7 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
+      vault: computed(() => AppState.vault),
       activeVault: computed(() => AppState.activeVault),
       keeps: computed(() => AppState.keeps)
       // vaultkeeps or keeps           ^^

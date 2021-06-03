@@ -12,8 +12,16 @@
       </div>
       <div>
         <p>
-          {{ keeps.name }}
-          <img :src="keeps.creator.picture" alt="" class="keeps-creator rounded-circle">
+          <router-link :to="{ name: 'ProfilePage', params: { id: state.account.id } }">
+            {{
+              keeps.name
+            }}
+            <img
+              :src="keeps.creator.picture"
+              alt=""
+              class="keeps-creator rounded-circle"
+            >
+          </router-link>
         </p>
       </div>
     </div>

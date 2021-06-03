@@ -7,6 +7,7 @@
       <div class="col-md-12">
         <div class="card-columns">
           <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
+          <KeepDetailsModal />
         </div>
       </div>
       <!-- Injecting All Keeps -->

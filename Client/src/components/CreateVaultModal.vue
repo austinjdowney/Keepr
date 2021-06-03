@@ -64,23 +64,13 @@
                   >
                 </div>
               </div>
-            </div>
-            <!-- <div class="col-12">
-                <div class="dropdown">
-                  <label class="mr-1">Select Fuel Type</label>
-                  <select class="form-select" style="border: 1px gray solid;" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
-                    <option value="unleaded">
-                      Unleaded
-                    </option>
-                    <option value="hybrid">
-                      Hybrid
-                    </option>
-                    <option value="diesel">
-                      Diesel
-                    </option>
-                  </select>
+              <div class="col-12">
+                <div class="mt-2">
+                  <input type="checkbox" class="" v-model="state.newVault.isPrivate">
+                  <label class="" for="exampleCheck1">Is this Private?</label>
                 </div>
-              </div> -->
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-grad-modal">

@@ -1,7 +1,11 @@
 <template>
   <div class="keep body image-fluid">
     <div>
-      <img :src="keeps.img" alt="Keep's Picture" class="keeps-background image-fluid">
+      <router-link data-toggle="modal"
+                   data-target="#keep-details-modal"
+      >
+        <img :src="keeps.img" alt="Keep's Picture" class="keeps-background image-fluid">
+      </router-link>
       <div>
         <p>
           {{ keeps.name }}

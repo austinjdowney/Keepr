@@ -1,24 +1,91 @@
 <template>
   <div class="keepDetailsModal">
-    <div class="row">
-      <div class="col-6 image-fluid">
-        <img :src="keeps.img" alt="">
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <i class="far fa-eye" title="number of views">{{ keeps.Views }}</i>
-            <i class="fab fa-kaggle" title="number of keeps">{{ keeps.Keeps }}</i>
-            <i class="fas fa-share-alt" title="number of shares"> 0 </i>
+    <div class="modal"
+         id="keep-details-modal"
+         v-if="keeps"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <img class="modal-logo" src="" alt="">
+            <!-- find imagelogo.. or use header logo -->
+            <h5 class="modal-title" id="exampleModalLabel">
+              <i class="fas fa-key text-primary fa-2x ml-3"></i>
+              <span class="mx-1 text-primary"><strong>PER</strong></span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span class="exit-modal-icon" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-6 image-fluid">
+                <img :src="keeps.img" alt="">
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center">
+                    <i class="far fa-eye" title="number of views">{{ keeps.views }}</i>
+                    <i class="fas fa-key" title="number of keeps">{{ keeps.keeps }}></i>
+                    <i class="fas fa-share-square" title="number of shares">{{ keeps.shares }}</i>
+                  </div>
+                  <div class="col-12 d-flex justify-content-center">
+                    <h3>
+                      {{ keeps.name }}
+                    </h3>
+                  </div>
+                  <div class="col-12 d-flex justify-content-center">
+                    {{ keeps.description }}
+                  </div>
+                </div>
+              <!-- views/keeps/shares -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" v-if="state.user.isAuthenticated">
+            <div class="row">
+              <div class="col-12">
+                <div class="dropdown">
+                  <label class="mr-1">Select Your Vault</label>
+                  <select class="form-select" aria-labelledby="dropdownMenuButton" style="border: 1px gray solid;" v-model="state.newVaultKeep.vaultId" required>
+                    <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
+                      {{ vault.name }}
+                    </option>
+                  </select>
+                </div>
+                <button type="button"
+                        v-if="state.account.id === keeps.creatorId"
+                        class="btn btn-grad-modal"
+                        data-dismiss="modal"
+                >
+                  Delete
+                </button>
+                <p>
+                  {{ keeps.name }}
+                  <img :src="keeps.creator.picture" alt="" class="keeps-creator rounded-circle">
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- views/keeps/shares -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
+
+import { vaultKeepsService } from '../services/VaultKeepsService'
+import $ from 'jquery'
+
 export default {
   name: 'KeepDetailsModal',
   props: {
@@ -27,8 +94,38 @@ export default {
       required: true
     }
   },
-  setup() {
-    return {}
+  setup(props) {
+    const route = useRoute()
+    const state = reactive({
+      newVaultKeep: {},
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
+      vaults: computed(() => AppState.vaults)
+    })
+    return {
+      route,
+      state,
+      async createVaultKeep() {
+        try {
+          state.newVaultKeep.keepId = props.keeps.id
+          await vaultKeepsService.createVaultKeep(state.newVaultKeep)
+          $('#keepDetailsModal').modal('hide')
+          Notification.toast('Successfully Added To Vault', 'success')
+          state.newVaultKeep = {}
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'warning')
+        }
+      },
+      async deleteKeep() {
+        try {
+          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes, Remove Keep')) {
+            await keepsService.deleteKeep(props.keeps.id, state.account.id)
+          }
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'warning')
+        }
+      }
+    }
   },
   components: {}
 }

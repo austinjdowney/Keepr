@@ -93,8 +93,6 @@ export default {
     const state = reactive({
       newKeep: {},
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults),
-      vaultKeeps: computed(() => AppState.vaultKeeps),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account)
     })

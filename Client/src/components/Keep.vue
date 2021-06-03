@@ -1,9 +1,10 @@
 <template>
-  <div class="keep body image-fluid">
-    <div>
+  <div class="keep body">
+    <div class="card">
       <div @click="activeKeep"
            data-toggle="modal"
            data-target="#keep-details-modal"
+           class="image-fluid"
       >
         <img :src="keeps.img"
              alt="Keep's Picture"
@@ -12,15 +13,19 @@
       </div>
       <div>
         <p>
-          <router-link :to="{ name: 'ProfilePage', params: { id: state.account.id } }">
-            {{
-              keeps.name
-            }}
-            <img
-              :src="keeps.creator.picture"
-              alt=""
-              class="keeps-creator rounded-circle"
-            >
+          <router-link :to="{ name: 'ProfilePage', params: { id: keeps.creatorId } }">
+            <div class="keeps-name">
+              {{
+                keeps.name
+              }}
+            </div>
+            <div>
+              <img
+                :src="keeps.creator.picture"
+                alt="keeps creator picture"
+                class="keeps-creator rounded-circle"
+              >
+            </div>
           </router-link>
         </p>
       </div>
@@ -48,7 +53,8 @@ export default {
       keeps: computed(() => AppState.keeps),
       activeKeep: computed(() => AppState.activeKeep),
       user: computed(() => AppState.user),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      activeProfile: computed(() => AppState.activeProfile)
     })
     return {
       state,
@@ -63,8 +69,11 @@ export default {
         }
       },
       async activeKeep() {
-        await keepsService.getKeepById()
         state.activeKeep = props.keeps
+        await keepsService.getKeepById(props.keeps.id)
+      },
+      activeProfile() {
+        state.account.id = state.keeps.creatorId
       }
     }
   }
@@ -73,13 +82,23 @@ export default {
 
 <style lang="scss" scoped>
 img{
-  width: 200px;
+  width: 100%;
 }
-// .keeps-background{
-//   // position:relative;
-// }
+.keeps-background{
+  position:relative;
+}
 .keeps-creator{
+  position:absolute;
   width: 50px;
+  right:1rem;
+  bottom:.5rem;
+}
+.keeps-name{
+  position:absolute;
+  bottom:1rem;
+  left:1.5rem;
+  font-weight: bold;
+  font-size:2rem;
 }
 // body {
 //   margin: 0;

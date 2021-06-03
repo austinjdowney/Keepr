@@ -1,18 +1,22 @@
 <template>
-  <div>
+  <div v-if="state.activeProfile">
     <div v-if="state.loading === true">
       Loading...
     </div>
     <div v-else class="profilePage container-fluid">
       <div class="row">
         <div class="ml-5 my-5">
-          <img :src="state.account.picture" alt="Profile Picture">
+          <img :src="state.activeProfile.picture" alt="Profile Picture">
           <div>
-            <p>{{ state.account.name }}</p>
+            <p>{{ state.activeProfile.name }}</p>
           </div>
+          <p>
+            Vaults: {{ state.vaults.length }}
+          </p>
+          <p>
+            Keeps: {{ state.keeps.length }}
+          </p>
         </div>
-        <!-- {{ state.activeProfile.vaults.length }}
-        {{ state.activeProfile.keeps.length }} -->
       </div>
       <div class="row">
         <div class="ml-5">

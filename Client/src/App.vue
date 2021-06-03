@@ -17,7 +17,6 @@
     </header>
     <main>
       <router-view />
-      <KeepDetailsModal />
       <CreateKeepModal />
       <CreateVaultModal />
     </main>

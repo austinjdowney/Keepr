@@ -1,4 +1,7 @@
 <template>
+  <div v-if="state.loading === true">
+    Loading...
+  </div>
   <div class="keepDetailsModal">
     <div class="modal"
          id="keep-details-modal"
@@ -108,11 +111,13 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      vaults: computed(() => AppState.vaults)
+      vaults: computed(() => AppState.vaults),
+      loading: true
     })
     onMounted(async() => {
       // route.params.id in the parameters?
       await keepsService.getKeepById(route.params.id)
+      state.loading = false
     })
     return {
       route,

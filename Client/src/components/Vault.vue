@@ -1,14 +1,16 @@
 <template>
   <div class="vault body image-fluid">
-    <div>
+    <div class="card">
       <router-link :to="{ name: 'VaultPage', params: { id: vaults.id }}">
         <img :src="vaults.img" alt="Vault's Picture" class="vaults-background image-fluid">
       </router-link>
       <div>
-        <p>
+        <div class="vaults-name">
           {{ vaults.name }}
-          <img :src="vaults.creator.picture" alt="" class="vaults-creator rounded-circle">
-        </p>
+        </div>
+        <div>
+          <img :src="vaults.creator.picture" alt="vaults creator picture" class="vaults-creator rounded-circle">
+        </div>
       </div>
     </div>
   </div>
@@ -55,13 +57,18 @@ export default {
 
 <style lang="scss" scoped>
 img{
-  width: 200px;
+  width: 100%;
 }
-// .keeps-background{
-//   // position:relative;
-// }
 .vaults-creator{
+  position:absolute;
   width: 50px;
+  right:1rem;
+  bottom:.5rem;
+}
+.vaults-name{
+  position:absolute;
+  bottom:1rem;
+  left:1.5rem;
 }
 // body {
 //   margin: 0;

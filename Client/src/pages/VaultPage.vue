@@ -32,7 +32,8 @@ export default {
     const state = reactive({
       vault: computed(() => AppState.vault),
       activeVault: computed(() => AppState.activeVault),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      vaultkeeps: computed(() => AppState.vaultkeeps)
       // vaultkeeps or keeps           ^^
     })
     onMounted(async() => {

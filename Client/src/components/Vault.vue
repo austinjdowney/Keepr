@@ -1,19 +1,13 @@
 <template>
-  <div class="keep body image-fluid">
+  <div class="vault body image-fluid">
     <div>
-      <div @click="activeKeep"
-           data-toggle="modal"
-           data-target="#keep-details-modal"
-      >
-        <img :src="keeps.img"
-             alt="Keep's Picture"
-             class="keeps-background image-fluid"
-        >
-      </div>
+      <router-link :to="{ name: 'VaultPage', params: { id: vaults.id }}">
+        <img :src="vaults.img" alt="Vault's Picture" class="vaults-background image-fluid">
+      </router-link>
       <div>
         <p>
-          {{ keeps.name }}
-          <img :src="keeps.creator.picture" alt="" class="keeps-creator rounded-circle">
+          {{ vaults.name }}
+          <img :src="vaults.creator.picture" alt="" class="vaults-creator rounded-circle">
         </p>
       </div>
     </div>
@@ -24,42 +18,38 @@
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
-import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
 import Notification from '../utils/Notification'
 export default {
-  name: 'Keep',
+  name: 'Vault',
   props: {
-    keeps: {
+    vaults: {
       type: Object,
       required: true
     }
   },
-  setup(props) {
+  setup() {
     const route = useRoute()
     const state = reactive({
-      keeps: computed(() => AppState.keeps),
-      activeKeep: computed(() => AppState.activeKeep),
+      vault: computed(() => AppState.vaults),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account)
     })
     return {
       state,
       route,
-      async deleteKeep() {
+      async deleteVault() {
         try {
-          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep')) {
-            await keepsService.deleteKeep(props.keeps.id, state.account.id)
+          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Vault')) {
+            await vaultsService.deleteVault(state.vault.id, state.account.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
         }
-      },
-      async activeKeep() {
-        await keepsService.getKeepById()
-        state.activeKeep = props.keeps
       }
     }
-  }
+  },
+  components: {}
 }
 </script>
 
@@ -70,7 +60,7 @@ img{
 // .keeps-background{
 //   // position:relative;
 // }
-.keeps-creator{
+.vaults-creator{
   width: 50px;
 }
 // body {

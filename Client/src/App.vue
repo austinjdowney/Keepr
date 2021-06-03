@@ -3,7 +3,7 @@
     <header>
       <div class="row bg-secondary">
         <div class="
-         col-3 mx-3"
+         col-5 mx-2"
         >
           <router-link :to="{ name: 'HomePage' }" class="nav-link">
             <i class="fas fa-key text-primary fa-2x ml-3"></i>

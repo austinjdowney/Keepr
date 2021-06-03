@@ -7,9 +7,9 @@ class KeepsService {
     AppState.keeps = res.data
   }
 
-  async getKeepById(keepId) {
-    const res = await api.get(`api/keeps/${keepId}`)
-    AppState.keeps = res.data
+  async getKeepById(id) {
+    const res = await api.get(`api/keeps/${id}`)
+    AppState.activeKeep = res.data
   }
 
   async getKeepsByProfileId(profileId) {

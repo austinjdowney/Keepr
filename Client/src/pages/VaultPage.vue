@@ -1,5 +1,5 @@
 <template>
-  <div class="vaultPage" v-if="state.vault">
+  <div class="vaultPage container-fluid" v-if="state.vault">
     <div class="row">
       <div class="col-12 ml-3">
         <h1>{{ state.vault.name }}</h1>

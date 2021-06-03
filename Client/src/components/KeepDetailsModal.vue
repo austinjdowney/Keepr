@@ -24,22 +24,22 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-6 image-fluid">
-                <img :src="keeps.img" alt="">
+                <img :src="state.activeKeep.img" alt="">
               </div>
               <div class="col-6">
                 <div class="row">
                   <div class="col-12 d-flex justify-content-center">
-                    <i class="far fa-eye" title="number of views">{{ keeps.views }}</i>
-                    <i class="fas fa-key" title="number of keeps">{{ keeps.keeps }}></i>
-                    <i class="fas fa-share-square" title="number of shares">{{ keeps.shares }}</i>
+                    <i class="far fa-eye" title="number of views">{{ state.activeKeep.views }}</i>
+                    <i class="fas fa-key" title="number of keeps">{{ state.activeKeep.keeps }}></i>
+                    <i class="fas fa-share-square" title="number of shares">{{ state.activeKeep.shares }}</i>
                   </div>
                   <div class="col-12 d-flex justify-content-center">
                     <h3>
-                      {{ keeps.name }}
+                      {{ state.activeKeep.name }}
                     </h3>
                   </div>
                   <div class="col-12 d-flex justify-content-center">
-                    {{ keeps.description }}
+                    {{ state.activeKeep.description }}
                   </div>
                 </div>
               <!-- views/keeps/shares -->
@@ -65,15 +65,15 @@
                 </div>
                 <button @click="deleteKeep"
                         type="button"
-                        v-if="state.account.id === keeps.creatorId"
+                        v-if="state.account.id === state.activeKeep.creatorId"
                         class="btn btn-grad-modal"
                         data-dismiss="modal"
                 >
                   Delete
                 </button>
                 <p>
-                  {{ keeps.name }}
-                  <img :src="keeps.creator.picture" alt="" class="keeps-creator rounded-circle">
+                  {{ state.activeKeep.name }}
+                  <img :src="state.activeKeep.creator.picture" alt="" class="keeps-creator rounded-circle">
                 </p>
               </div>
             </div>
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
@@ -95,26 +95,31 @@ import $ from 'jquery'
 
 export default {
   name: 'KeepDetailsModal',
-  props: {
-    keeps: {
-      type: Object,
-      required: true
-    }
-  },
-  setup(props) {
+  // props: {
+  //   keeps: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
+  setup() {
     const route = useRoute()
     const state = reactive({
       newVaultKeep: {},
+      activeKeep: computed(() => AppState.activeKeep),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.vaults)
+    })
+    onMounted(async() => {
+      // route.params.id in the parameters?
+      await keepsService.getKeepById(route.params.id)
     })
     return {
       route,
       state,
       async createVaultKeep() {
         try {
-          state.newVaultKeep.keepId = props.keeps.id
+          state.newVaultKeep.keepId = state.activeKeep.id
           await vaultKeepsService.createVaultKeep(state.newVaultKeep)
           $('#keep-details-modal').modal('hide')
           Notification.toast('Successfully Added To Vault', 'success')
@@ -126,7 +131,7 @@ export default {
       async deleteKeep() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes, Remove Keep')) {
-            await keepsService.deleteKeep(props.keeps.id, state.account.id)
+            await keepsService.deleteKeep(state.activeKeep.id, state.account.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

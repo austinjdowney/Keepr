@@ -25,20 +25,12 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-6 image-fluid">
-                <img :src="state.activeKeep.img" alt="">
-              </div>
-              <div class="row">
-                <div class="keeps-name">
-                  {{ state.activeKeep.name }}
-                </div>
-                <span v-if="state.activeKeep.creator">
-                  <img :src="state.activeKeep.creator.picture" alt="" class="keeps-creator rounded-circle">
-                </span>
+              <div class="col-6 keep-img">
+                <img :src="state.activeKeep.img" class="w-100" alt="">
               </div>
               <div class="col-6">
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-between ml-3">
+                  <div class="col-12 d-flex justify-content-between ml-1">
                     <i class="far fa-eye" title="number of views">{{ state.activeKeep.views }}</i>
                     <i class="fas fa-key" title="number of keeps">{{ state.activeKeep.keeps }}</i>
                     <i class="fas fa-share-square" title="number of shares">{{ state.activeKeep.shares }}</i>
@@ -52,36 +44,44 @@
                     {{ state.activeKeep.description }}
                   </div>
                 </div>
-              <!-- views/keeps/shares -->
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer" v-if="state.user.isAuthenticated">
-            <div class="row">
-              <div class="col-12">
-                <div class="dropdown">
-                  <label class="mr-1">Select Your Vault</label>
-                  <select @click="createVaultKeep"
-                          class="form-select"
-                          aria-labelledby="dropdownMenuButton"
-                          style="border: 1px gray solid;"
-                          v-model="state.newVaultKeep.vaultId"
-                          required
-                  >
-                    <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
-                      {{ vault.name }}
-                    </option>
-                  </select>
-                </div>
                 <div class="row">
-                  <button @click="deleteKeep"
-                          type="button"
-                          v-if="state.account.id === state.activeKeep.creatorId"
-                          class="btn btn-grad-modal"
-                          data-dismiss="modal"
-                  >
-                    Delete
-                  </button>
+                  <div class="keeps-name">
+                    {{ state.activeKeep.name }}
+                  </div>
+                  <span v-if="state.activeKeep.creator">
+                    <img :src="state.activeKeep.creator.picture" alt="" class="keeps-creator rounded-circle">
+                  </span>
+                </div>
+                <!-- views/keeps/shares -->
+                <div class="" v-if="state.user.isAuthenticated">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="dropdown">
+                        <label class="mr-1">Select Your Vault</label>
+                        <select @click="createVaultKeep"
+                                class="form-select"
+                                aria-labelledby="dropdownMenuButton"
+                                style="border: 1px gray solid;"
+                                v-model="state.newVaultKeep.vaultId"
+                                required
+                        >
+                          <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
+                            {{ vault.name }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <button @click="deleteKeep"
+                                type="button"
+                                v-if="state.account.id === state.activeKeep.creatorId"
+                                class="btn btn-grad-modal"
+                                data-dismiss="modal"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,21 +155,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img{
-  width: 100%;
-}
+// .keep-img{
+//   // width: 50;
+//   // height: 100%;
+// }
 .keeps-name{
   position:absolute;
-  bottom:-3.5rem;
-  left:4rem;
+  bottom:1rem;
+  left:5rem;
   font-weight: bold;
   font-size:15px;
 }
 .keeps-creator{
   position:absolute;
   width: 50px;
-  left:.5rem;
-  bottom:-3rem;
+  left:1rem;
+  bottom:0rem;
 }
 
 </style>

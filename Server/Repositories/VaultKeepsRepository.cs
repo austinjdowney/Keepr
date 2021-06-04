@@ -41,7 +41,12 @@ namespace Server.Repositories
 
     internal VaultKeep Create(VaultKeep vk)
     {
+      // UPDATE keeps 
+      //   SET 
+      //   keeps = keeps + 1
+      // WHERE id = @Id;
       string sql = @"
+
         INSERT INTO vaultkeeps
         (creatorId, keepId, vaultId)
         VALUES

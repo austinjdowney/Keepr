@@ -8,10 +8,12 @@ namespace Server.Services
   public class VaultKeepsService
   {
     private readonly VaultKeepsRepository _vkr;
+    private readonly KeepsRepository _kr;
 
-    public VaultKeepsService(VaultKeepsRepository vkr)
+    public VaultKeepsService(VaultKeepsRepository vkr, KeepsRepository kr)
     {
       _vkr = vkr;
+      _kr = kr;
     }
 
     internal List<VaultKeepViewModel> GetAllVaultKeeps()
@@ -35,6 +37,9 @@ namespace Server.Services
 
     internal VaultKeep Create(VaultKeep vk)
     {
+      Keep keep = _kr.GetById(vk.KeepId);
+      keep.Keeps++;
+      _kr.Update(keep);
       return _vkr.Create(vk);
     }
 

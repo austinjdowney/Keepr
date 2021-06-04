@@ -18,7 +18,7 @@
               <b>Create Vault</b>
             </div>
           </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close Modal">
             <span class="exit-modal-icon" aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -73,7 +73,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-grad-modal">
+            <button type="submit" class="btn btn-grad-modal" title="Crate Vault">
               Create
             </button>
           </div>

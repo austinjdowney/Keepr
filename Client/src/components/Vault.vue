@@ -74,6 +74,8 @@ img{
   left:1.5rem;
   font-weight: bold;
   font-size:2rem;
+  color: white;
+  text-shadow: 2px 4px 4px black
 }
 // body {
 //   margin: 0;

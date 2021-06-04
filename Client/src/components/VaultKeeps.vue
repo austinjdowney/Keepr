@@ -2,7 +2,7 @@
   <div class="vaultKeeps body">
     <div class="card">
       <div v-if="state.account.id || keeps.creatorId === state.vaults.creatorId">
-        <i @click="deleteVaultKeep" class="fa fa-eye" aria-hidden="true"></i>
+        <i @click="deleteVaultKeep" class="fa fa-trash" aria-hidden="true"></i>
       </div>
       <div @click="activeKeep"
            data-toggle="modal"
@@ -41,9 +41,8 @@ import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 // import { keepsService } from '../services/KeepsService'
-// import { vaultKeepsService } from '../services/VaultKeepsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 import Notification from '../utils/Notification'
-import { keepsService } from '../services/KeepsService'
 export default {
   name: 'VaultKeeps',
   props: {
@@ -66,8 +65,8 @@ export default {
       async deleteVaultKeep() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep from Vault')) {
-            // await vaultKeepsService.deleteVaultKeep(state.vaultKeeps.id, state.vaults.id)
-            await keepsService.deleteKeep(props.keeps.id, state.vaults.id)
+            await vaultKeepsService.deleteVaultKeep(state.vaultKeeps, state.vaults.id)
+            // await keepsService.deleteKeep(props.keeps.id, state.vaults.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

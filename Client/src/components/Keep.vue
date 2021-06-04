@@ -98,7 +98,9 @@ img{
   bottom:1rem;
   left:1.5rem;
   font-weight: bold;
-  font-size:15px;
+  font-size:25px;
+  color: white;
+  text-shadow: 2px 4px 4px black;
 }
 // body {
 //   margin: 0;

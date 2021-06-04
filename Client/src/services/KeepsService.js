@@ -1,6 +1,5 @@
 import { AppState } from '../AppState'
 import { api } from './AxiosService'
-
 class KeepsService {
   async getAllKeeps() {
     const res = await api.get('api/keeps')
@@ -25,6 +24,12 @@ class KeepsService {
   async deleteKeep(id, profileId) {
     await api.delete(`api/keeps/${id}`)
     this.getKeepsByProfileId(profileId)
+    this.getKeepsByVaultId(profileId)
+  }
+
+  async getKeepsByVaultId(vaultId) {
+    const res = await api.get(`api/vaults/${vaultId}/keeps`)
+    AppState.keeps = res.data
   }
 
   async editKeep(newKeep) {

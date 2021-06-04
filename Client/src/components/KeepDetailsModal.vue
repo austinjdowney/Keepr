@@ -32,7 +32,9 @@
                 <div class="keeps-name">
                   {{ state.activeKeep.name }}
                 </div>
-                <img :src="state.activeKeep.creator.picture" alt="" class="keeps-creator rounded-circle">
+                <span v-if="state.activeKeep.creator">
+                  <img :src="state.activeKeep.creator.picture" alt="" class="keeps-creator rounded-circle">
+                </span>
               </div>
               <div class="col-6">
                 <div class="row">
@@ -59,14 +61,14 @@
               <div class="col-12">
                 <div class="dropdown">
                   <label class="mr-1">Select Your Vault</label>
-                  <select
-                    class="form-select"
-                    aria-labelledby="dropdownMenuButton"
-                    style="border: 1px gray solid;"
-                    v-model="state.newVaultKeep.vaultId"
-                    required
+                  <select @click="createVaultKeep"
+                          class="form-select"
+                          aria-labelledby="dropdownMenuButton"
+                          style="border: 1px gray solid;"
+                          v-model="state.newVaultKeep.vaultId"
+                          required
                   >
-                    <option v-for="vault in state.vaults" :key="vault.name" :value="vault.id">
+                    <option v-for="vault in state.vaults" :key="vault.id" :value="vault.id">
                       {{ vault.name }}
                     </option>
                   </select>
@@ -158,7 +160,7 @@ img{
 }
 .keeps-name{
   position:absolute;
-  bottom:-4.5rem;
+  bottom:-3.5rem;
   left:4rem;
   font-weight: bold;
   font-size:15px;
@@ -167,7 +169,7 @@ img{
   position:absolute;
   width: 50px;
   left:.5rem;
-  bottom:-5rem;
+  bottom:-3rem;
 }
 
 </style>

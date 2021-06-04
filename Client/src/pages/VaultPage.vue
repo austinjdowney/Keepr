@@ -8,7 +8,8 @@
     <div class="row">
       <div class="col-12">
         <div class="card-columns">
-          <VaultKeeps v-for="vaultKeeps in state.vaultKeeps" :key="vaultKeeps.id" :keeps="keeps" />
+          <VaultKeeps v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
+          <!-- <Keeps v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" /> -->
 
           <!-- injecting VaultKeeps.. keeps for this vault -->
         </div>
@@ -38,8 +39,9 @@ export default {
     })
     onMounted(async() => {
       try {
-        await vaultsService.getVaultById(route.params.id)
         await vaultKeepsService.getKeepsByVaultId(route.params.id)
+        await vaultsService.getVaultById(route.params.id)
+        await vaultKeepsService.getAllVaultKeeps(route.params.id)
       } catch (error) {
         Notification.toast('Error: ' + error, 'warning')
       }

@@ -4,12 +4,12 @@ import { api } from './AxiosService'
 class VaultKeepsService {
   async getAllVaultKeeps() {
     const res = await api.get('api/vaultkeeps')
-    AppState.vaultkeeps = res.data
+    AppState.vaultKeeps = res.data
   }
 
   async getVaultKeepsById(vaultkeepId) {
     const res = await api.get(`api/vaultkeeps/${vaultkeepId}`)
-    AppState.vaultkeeps = res.data
+    AppState.keeps = res.data
   }
 
   async getKeepsByVaultId(vaultId) {
@@ -22,9 +22,10 @@ class VaultKeepsService {
     this.getVaultKeepsById(res.data.creatorId)
   }
 
-  async deleteVaultKeep(id, profileId) {
+  async deleteVaultKeep(id, vaultId) {
     await api.delete(`api/vaultkeeps/${id}`)
-    this.getVaultKeepsById(profileId)
+    // this.getKeepsByVaultId(vaultId)
+    this.getAllVaultKeeps(vaultId)
   }
 }
 export const vaultKeepsService = new VaultKeepsService()

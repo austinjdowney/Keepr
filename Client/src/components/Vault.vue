@@ -1,6 +1,9 @@
 <template>
   <div class="vault body image-fluid">
     <div class="card">
+      <div v-if="state.account.id === vaults.creatorId">
+        <i @click="deleteVault" class="fa fa-trash" aria-hidden="true"></i>
+      </div>
       <router-link :to="{ name: 'VaultPage', params: { id: vaults.id }}">
         <img :src="vaults.img" alt="Vault's Picture" class="vaults-background image-fluid">
       </router-link>
@@ -30,7 +33,7 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     const route = useRoute()
     const state = reactive({
       vault: computed(() => AppState.vaults),
@@ -43,7 +46,7 @@ export default {
       async deleteVault() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Vault')) {
-            await vaultsService.deleteVault(state.vault.id, state.account.id)
+            await vaultsService.deleteVault(props.vaults.id, state.account.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

@@ -1,7 +1,7 @@
 <template>
   <div class="vaultKeeps body">
     <div class="card">
-      <div v-if="state.account.id === state.vaults.creatorId">
+      <div v-if="state.account.id || keeps.creatorId === state.vaults.creatorId">
         <i @click="deleteVaultKeep" class="fa fa-eye" aria-hidden="true"></i>
       </div>
       <div @click="activeKeep"
@@ -41,8 +41,9 @@ import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 // import { keepsService } from '../services/KeepsService'
-import { vaultKeepsService } from '../services/VaultKeepsService'
+// import { vaultKeepsService } from '../services/VaultKeepsService'
 import Notification from '../utils/Notification'
+import { keepsService } from '../services/KeepsService'
 export default {
   name: 'VaultKeeps',
   props: {
@@ -56,10 +57,7 @@ export default {
     const state = reactive({
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
-      activeKeep: computed(() => AppState.activeKeep),
-      user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      activeProfile: computed(() => AppState.activeProfile),
       vaultKeeps: computed(() => AppState.vaultKeeps)
     })
     return {
@@ -68,15 +66,17 @@ export default {
       async deleteVaultKeep() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep from Vault')) {
-            await vaultKeepsService.deleteVaultKeep(state.vaultKeeps.id, state.account.id)
+            // await vaultKeepsService.deleteVaultKeep(state.vaultKeeps.id, state.vaults.id)
+            await keepsService.deleteKeep(props.keeps.id, state.vaults.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
         }
-      },
-      async getVaultKeepById() {
-        state.vaultKeeps = props.keeps
-        await vaultKeepsService.getKeepsByVaultId(state.vaultKeeps.id)
+      // },
+      // async getVaultKeepById() {
+      //   state.vaultKeeps = props.keeps
+      //   await vaultKeepsService.getKeepsByVaultId(state.vaults.id)
+      // }
       }
     }
   }
@@ -92,7 +92,7 @@ img{
 }
 .keeps-creator{
   position:absolute;
-  width: 50px;
+  width: 40px;
   right:1rem;
   bottom:.5rem;
 }
@@ -101,7 +101,8 @@ img{
   bottom:1rem;
   left:1.5rem;
   font-weight: bold;
-  font-size:2rem;
+  font-size:1rem;
+  // color: rgb(117, 102, 102)
 }
 // body {
 //   margin: 0;

@@ -1,8 +1,8 @@
 <template>
   <div class="vaultKeeps body">
     <div class="card">
-      <div v-if="state.account.id || keeps.creatorId === state.vaults.creatorId">
-        <i @click="deleteVaultKeep" class="fa fa-trash" aria-hidden="true"></i>
+      <div v-if="state.account.id == state.activeVault.creatorId">
+        <i @click="deleteVaultKeep" class="fa fa-trash" aria-hidden="true" title="delete vaultkeep"></i>
       </div>
       <div @click="activeKeep"
            data-toggle="modal"
@@ -57,7 +57,8 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       account: computed(() => AppState.account),
-      vaultKeeps: computed(() => AppState.vaultKeeps)
+      vaultKeeps: computed(() => AppState.vaultKeeps),
+      activeVault: computed(() => AppState.activeVault)
     })
     return {
       state,
@@ -65,8 +66,8 @@ export default {
       async deleteVaultKeep() {
         try {
           if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes,Remove Keep from Vault')) {
-            await vaultKeepsService.deleteVaultKeep(state.vaultKeeps, state.vaults.id)
-            // await keepsService.deleteKeep(props.keeps.id, state.vaults.id)
+            // await vaultKeepsService.deleteVaultKeep(state.vaultKeeps, state.vaults.id)
+            await vaultKeepsService.deleteVaultKeep(props.keeps.vaultKeepId, state.vaults.id)
           }
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
@@ -99,9 +100,10 @@ img{
   position:absolute;
   bottom:1rem;
   left:1.5rem;
-  font-weight: bold;
-  font-size:1rem;
-  // color: rgb(117, 102, 102)
+   font-weight: bold;
+  font-size:25px;
+  color: white;
+  text-shadow: 2px 4px 4px black;
 }
 // body {
 //   margin: 0;

@@ -57,9 +57,10 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="dropdown">
-                        <label class="mr-1">Select Your Vault</label>
-                        <select @click="createVaultKeep"
-                                class="form-select"
+                        <button @click="createVaultKeep" class="btn btn-outline-primary mr-1">
+                          Add To Vault
+                        </button>
+                        <select class="form-select"
                                 aria-labelledby="dropdownMenuButton"
                                 style="border: 1px gray solid;"
                                 v-model="state.newVaultKeep.vaultId"

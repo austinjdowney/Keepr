@@ -25,7 +25,7 @@ class VaultKeepsService {
   async deleteVaultKeep(id, vaultId) {
     await api.delete(`api/vaultkeeps/${id}`)
     this.getKeepsByVaultId(vaultId)
-    // this.getAllVaultKeeps(vaultId)
+    // this.getVaultKeepsById(id)
   }
 }
 export const vaultKeepsService = new VaultKeepsService()

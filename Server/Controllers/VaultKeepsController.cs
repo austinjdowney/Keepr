@@ -53,6 +53,7 @@ namespace Server.Controllers
         vk.CreatorId = userInfo.Id;
         VaultKeep newVK = _vks.Create(vk);
         newVK.CreatorId = userInfo.Id;
+        // newVK.Creator = userInfo;
         return Ok(newVK);
       }
       catch (System.Exception e)

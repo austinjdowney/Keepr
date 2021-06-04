@@ -5,7 +5,7 @@
   <div v-else class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="card-columns">
+        <div class="card-columns mt-3">
           <Keep v-for="keeps in state.keeps" :key="keeps.id" :keeps="keeps" />
         </div>
       </div>

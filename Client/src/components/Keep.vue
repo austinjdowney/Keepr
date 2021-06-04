@@ -1,8 +1,8 @@
 <template>
-  <div class="keep body">
+  <div class="keep body mt-3">
     <div class="card">
       <div v-if="state.account.id === keeps.creatorId">
-        <i @click="deleteKeep" class="fa fa-trash" aria-hidden="true"></i>
+        <i @click="deleteKeep" class="fa fa-trash" aria-hidden="true" title="delete keeo"></i>
       </div>
       <div @click="activeKeep"
            data-toggle="modal"

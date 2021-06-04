@@ -51,9 +51,14 @@ namespace Server.Services
     }
 
     //ProfileId is a string.. vaultId are an int..
-    internal List<Vault> GetVaultsByProfileId(string id)
+    internal List<Vault> GetVaultsByProfileId(string id, string userId)
     {
-      return _vr.GetVaultsByProfileId(id).ToList().FindAll(v => v.IsPrivate == false);
+      var vaults = _vr.GetVaultsByProfileId(id).ToList();
+      if (id != userId)
+      {
+        vaults = vaults.FindAll(v => v.IsPrivate == false);
+      }
+      return vaults;
     }
 
     internal Account Edit(Account editData, string userEmail)

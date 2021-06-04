@@ -2,7 +2,7 @@
   <div class="vault body image-fluid">
     <div class="card">
       <div v-if="state.account.id === vaults.creatorId">
-        <i @click="deleteVault" class="fa fa-trash" aria-hidden="true"></i>
+        <i @click="deleteVault" class="fa fa-trash" aria-hidden="true" title="delete Vault"></i>
       </div>
       <router-link :to="{ name: 'VaultPage', params: { id: vaults.id }}">
         <img :src="vaults.img" alt="Vault's Picture" class="vaults-background image-fluid">

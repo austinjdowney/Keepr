@@ -111,6 +111,7 @@ namespace Server
       app.UseDefaultFiles();
       app.UseStaticFiles();
 
+
       app.UseRouting();
 
       // TODO[epic=Auth] Add Authenentication so bearer gets validated

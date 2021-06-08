@@ -108,8 +108,8 @@ namespace Server
       //Similar to npm run build
 
       //Go to vue configure.js and adjust the output to ../final.server/wwwroot
-      app.UseStaticFiles();
       app.UseDefaultFiles();
+      app.UseStaticFiles();
 
       app.UseRouting();
 

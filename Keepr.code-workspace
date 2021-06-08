@@ -26,7 +26,6 @@
       "**/.nyc_*": true,
       "**/coverage": true,
       "**/node_modules": true,
-      "**/bin": true,
       "**/obj": true
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
@@ -45,6 +44,7 @@
         "strings": true
       },
       "editor.suggest.insertMode": "replace"
-    }
+    },
+    "bracket-pair-colorizer-2.excludedLanguages": []
   }
 }

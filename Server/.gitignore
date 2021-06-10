@@ -5,7 +5,7 @@
 
 #appsettings
 
-appsettings.*
+appsettings.Development.json
 .vscode
 
 # User-specific files
